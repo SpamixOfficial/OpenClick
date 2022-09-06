@@ -43,6 +43,6 @@ It doesn't work on MacOS because of permission issues regarding pynput!
 
 
 # To-do List!
-[ ] Add customization
-[ ] Add constant mode
-[ ] Something you can suggest
+- [ ] Add customization
+- [ ] Add constant mode
+- [ ] Something you can suggest
