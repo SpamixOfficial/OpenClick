@@ -17,7 +17,7 @@ Step 2:
   When you've gotten the message:
   > You are ready to go!
   
-  you can run the main.py using:
+  you can run the main.py file using:
   ```
   python3 main.py
   ```
