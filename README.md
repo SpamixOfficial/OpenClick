@@ -7,7 +7,7 @@ Make sure you have python installed! Most linux distros comes with python out of
 Also make sure you have "pip" installed! Most linux distros comes with pip out of the box, but once again, check so its installed just in case it isn't!
 
 
-# How to use
+# How to install
 Step 1:
   Run the installation script!
   ```
@@ -22,7 +22,12 @@ Step 2:
   python3 main.py
   ```
   You are done!
-
+# How to use
+Use the command 
+  ```
+  python3 main.py
+  ```
+to run the script!
 # Extra info
 If you find any bugs, report them!
 The project is written in python.
