@@ -33,7 +33,7 @@ to run the script!
 # Extra info
 If you find any bugs, report them!
 The project is written in python.
-And lastly, if you find something you feel like can be imporved, changed or just something you want to add, suggest it in
+And lastly, if you find something you feel like can be improved, changed or just something you want to add, suggest it in "ideas" (https://github.com/SpamixOfficial/OpenClick/discussions/1)
 
 
 # DISCLAIMER
@@ -45,4 +45,4 @@ It doesn't work on MacOS because of permission issues regarding pynput!
 # To-do List!
 - [ ] Add customization
 - [ ] Add constant mode
-- [ ] Something you can suggest
+- [ ] Something you can suggest in "ideas" (https://github.com/SpamixOfficial/OpenClick/discussions/1)
