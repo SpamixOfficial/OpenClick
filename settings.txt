@@ -1,2 +1,2 @@
-GREEN
-firststartup=true
+RED
+firststartup=false
