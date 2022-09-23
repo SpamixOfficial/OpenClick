@@ -1,21 +1,20 @@
 # Startup Check
-
+import os, time, re
 firststartup = False
 if True:
-	checkstartup = "firststartup=true"
-	checkstartup2 = "firststartup=false"
-	settingsfile = open("settings.txt", 'r+')
-	readfilesize = 'settings.txt'
-	if checkstartup in settingsfile:
+	settingsread = open("settings.txt", 'r+').read()
+	rawstartcheck = ["firststartup=true", "firststartup=false"]
+	word_exp='|'.join(rawstartcheck)
+	fullstartupcheck = re.findall(word_exp, open("settings.txt", 'r+').read())
+	if "firststartup=true" in fullstartupcheck:
 		firststartup = True
-	elif checkstartup2 in settingsfile:
+	elif "firststartup=false" in fullstartupcheck:
 		firststartup = False
-
-	settingsfile.close()
+		print("Run the installation script before running the main program!")
+		quit()
 
 ## --------------------------------------------------------------- ##
 # Settings Check
-import os, time, re
 from pynput.keyboard import Key, Listener
 from pynput.mouse import Button, Controller
 from colorama import Fore, Back, init
@@ -59,13 +58,26 @@ if True:
 		color = Fore.WHITE
 	elif "YELLOW" in fullcolorcheck:
 		color = Fore.YELLOW
+
+hotkey = Key.f1
+if True:
+	settingsread = open("settings.txt", 'r+').read()
+	keycheck = [
+    'alt', 'backspace', 'cmd', 'ctrl', 'delete', 'down', 'end', 'enter',
+     'f1', 'f10', 'f11', 'f12', 'f13', 'f14', 'f15', 'f16', 'f17', 'f18',
+    'f19', 'f2', 'f20', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9', 'home',
+    ]
+	word_exp='|'.join(keycheck)
+	fullkeycheck = re.findall(word_exp, open("settings.txt", 'r+').read())
+
+	if "f1" in fullkeycheck:
+		hotkey = Key.f1
+	elif "f2" in fullkeycheck:
+		hotkey = Key.f2
 ## --------------------------------------------------------------- ##
 # Start of program
 
 init(autoreset=True)
-if firststartup == False:
-	print("Run the installation script before running the main program!")
-	quit()
 
 mouse = Controller()
 
@@ -103,21 +115,23 @@ for char in openlogo:
 	time.sleep(0.003)
 
 ## Start of clicker code
-print(color + "Controls: \nF1 to click \nEsc to exit the script!")
+print(color + "Controls: \n" + str(hotkey) + " to click \nEsc to exit the script!")
 def on_press(key):
-    if key == Key.f1:
-        mouse.press(Button.left)
-        mouse.release(Button.left)
-    if key == Key.delete:
-    	print("work :D")
+	global Key
+	if key == hotkey:
+
+		mouse.press(Button.left)
+		mouse.release(Button.left)
+	if key == Key.delete:
+		print("work :D")
 
 def on_release(key):
-    if key == Key.esc:
-        # Stop listener
-        return False
+	if key == Key.esc:
+		# Stop listener
+		return False
 
 # Collect events until released
 with Listener(
-        on_press=on_press,
-        on_release=on_release) as listener:
-    listener.join()
+		on_press=on_press,
+		on_release=on_release) as listener:
+	listener.join()

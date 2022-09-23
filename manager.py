@@ -4,7 +4,11 @@ init(autoreset=True)
 colors = dict(Fore.__dict__.items())
 nocolors = ["BLACK", "BLUE", "CYAN", "GREEN", "LIGHTBLACK_EX", "LIGHTBLUE_EX", "LIGHTCYAN_EX", "LIGHTGREEN_EX", 
 "LIGHTMAGENTA_EX", "LIGHTRED_EX", "LIGHTWHITE_EX", "LIGHTYELLOW_EX", "MAGENTA", "RED", "RESET", "WHITE", "YELLOW"]
-
+hotkeynames = [
+    'alt', 'backspace', 'cmd', 'ctrl', 'delete', 'down', 'end', 'enter',
+    'f1', 'f10', 'f11', 'f12', 'f13', 'f14', 'f15', 'f16', 'f17', 'f18',
+    'f19', 'f2', 'f20', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9', 'home',
+    ]
 parser = argparse.ArgumentParser(description='OpenClick Manager!')
 parser.add_argument("--c", "--custom", help="Opens the customization menu", action="store_true")
 args = parser.parse_args()
@@ -13,10 +17,11 @@ if args.c == True:
 	print("Customization Menu")
 	print("\r")
 	print("	\r Textcolor (--textcolor)")
+	print(" \r Color Examples (--colorexamples)")
+	print("	\r Key (--key)")
 	print("\r Exit (--exit)")
 
 	while True:
-
 		menuinput = input("$>").lower()
 
 		if menuinput == "--colorexamples":
@@ -212,5 +217,31 @@ if args.c == True:
 				with open('settings.txt', 'w', encoding='utf-8') as file:
 					file.writelines(data)
 
+		elif menuinput == "--key":
+			for key in hotkeynames:
+				print(key)
+			print("\n Choose a key!")
+			choose_key = input("$\"Key\">").lower()
+
+			if choose_key == "f1":
+				print("Key \"f1\" was selected!")
+				with open('settings.txt', 'r', encoding='utf-8') as file:
+					data = file.readlines()
+
+				print(data)
+				data[2] = "f1\n"
+
+				with open('settings.txt', 'w', encoding='utf-8') as file:
+					file.writelines(data)
+			elif choose_key == "f2":
+				print("Key \"f2\" was selected!")
+				with open('settings.txt', 'r', encoding='utf-8') as file:
+					data = file.readlines()
+
+				print(data)
+				data[2] = "f2\n"
+
+				with open('settings.txt', 'w', encoding='utf-8') as file:
+					file.writelines(data)
 		elif menuinput == "--exit":
 			break

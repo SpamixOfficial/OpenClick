@@ -1,2 +1,3 @@
 RED
 firststartup=false
+f1
