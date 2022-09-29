@@ -1,4 +1,5 @@
 # Startup Check
+debugswitch = 1
 import os, time, re
 firststartup = False
 if True:
@@ -63,9 +64,7 @@ hotkey = Key.f1
 if True:
 	settingsread = open("settings.txt", 'r+').read()
 	keycheck = [
-    'alt', 'backspace', 'cmd', 'ctrl', 'delete', 'down', 'end', 'enter',
-     'f1', 'f10', 'f11', 'f12', 'f13', 'f14', 'f15', 'f16', 'f17', 'f18',
-    'f19', 'f2', 'f20', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9', 'home',
+    'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9'
     ]
 	word_exp='|'.join(keycheck)
 	fullkeycheck = re.findall(word_exp, open("settings.txt", 'r+').read())
@@ -74,6 +73,31 @@ if True:
 		hotkey = Key.f1
 	elif "f2" in fullkeycheck:
 		hotkey = Key.f2
+	elif "f3" in fullkeycheck:
+		hotkey = Key.f3
+	elif "f4" in fullkeycheck:
+		hotkey = Key.f4
+	elif "f5" in fullkeycheck:
+		hotkey = Key.f5
+	elif "f6" in fullkeycheck:
+		hotkey = Key.f6
+	elif "f7" in fullkeycheck:
+		hotkey = Key.f7
+	elif "f8" in fullkeycheck:
+		hotkey = Key.f8
+	elif "f9" in fullkeycheck:
+		hotkey = Key.f9
+if True:
+	settingsread = open("settings.txt", 'r+').read()
+	debugcheck = [
+     "debugmode=true", "debugmode=false"
+    ]
+	word_exp='|'.join(debugcheck)
+	debugcheckr = re.findall(word_exp, open("settings.txt", 'r+').read())
+	if "debugmode=true" in debugcheckr:
+		debugmode = True
+	elif "debugmode=false" in debugcheckr:
+		debugmode = False
 ## --------------------------------------------------------------- ##
 # Start of program
 
@@ -99,8 +123,9 @@ openlogo = """
                                                                               
 							SpamixOfficial 2022                                                          
 """
-print(fullcolorcheck)
-
+if debugmode == True:
+	print("Debugmode")
+	print("\r" + str(fullcolorcheck) + str(fullkeycheck))
 for a in "Hello and welcome to":
 	time.sleep(0.1)
 	print(color + a, end="")
@@ -118,12 +143,22 @@ for char in openlogo:
 print(color + "Controls: \n" + str(hotkey) + " to click \nEsc to exit the script!")
 def on_press(key):
 	global Key
+	global debugmode
+	global debugswitch
 	if key == hotkey:
-
+		if debugmode == True:
+			print(key)
 		mouse.press(Button.left)
 		mouse.release(Button.left)
 	if key == Key.delete:
-		print("work :D")
+		if debugswitch == 1:
+			debugmode = True
+			debugswitch = 1+1
+			print(debugswitch)
+		if debugswitch == 2:
+			debugmode = False
+			debugswitch = 2-1
+			print(debugswitch)
 
 def on_release(key):
 	if key == Key.esc:

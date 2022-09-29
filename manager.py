@@ -5,23 +5,22 @@ colors = dict(Fore.__dict__.items())
 nocolors = ["BLACK", "BLUE", "CYAN", "GREEN", "LIGHTBLACK_EX", "LIGHTBLUE_EX", "LIGHTCYAN_EX", "LIGHTGREEN_EX", 
 "LIGHTMAGENTA_EX", "LIGHTRED_EX", "LIGHTWHITE_EX", "LIGHTYELLOW_EX", "MAGENTA", "RED", "RESET", "WHITE", "YELLOW"]
 hotkeynames = [
-    'alt', 'backspace', 'cmd', 'ctrl', 'delete', 'down', 'end', 'enter',
-    'f1', 'f10', 'f11', 'f12', 'f13', 'f14', 'f15', 'f16', 'f17', 'f18',
-    'f19', 'f2', 'f20', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9', 'home',
+    'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9'
     ]
-parser = argparse.ArgumentParser(description='OpenClick Manager!')
+parser = argparse.ArgumentParser(description='OpenClick Manager')
 parser.add_argument("--c", "--custom", help="Opens the customization menu", action="store_true")
+parser.add_argument("-deb", help="Debug", action="store_true")
 args = parser.parse_args()
 
 if args.c == True:
-	print("Customization Menu")
-	print("\r")
-	print("	\r Textcolor (--textcolor)")
-	print(" \r Color Examples (--colorexamples)")
-	print("	\r Key (--key)")
-	print("\r Exit (--exit)")
-
 	while True:
+		print("Customization Menu")
+		print("\r")
+		print("	\r Textcolor (--textcolor)")
+		print(" \r Color Examples (--colorexamples)")
+		print("	\r Key (--key)")
+		print("\r Exit (--exit)")
+
 		menuinput = input("$>").lower()
 
 		if menuinput == "--colorexamples":
@@ -243,5 +242,109 @@ if args.c == True:
 
 				with open('settings.txt', 'w', encoding='utf-8') as file:
 					file.writelines(data)
+			elif choose_key == "f3":
+				print("Key \"f3\" was selected!")
+				with open('settings.txt', 'r', encoding='utf-8') as file:
+					data = file.readlines()
+
+				print(data)
+				data[2] = "f3\n"
+
+				with open('settings.txt', 'w', encoding='utf-8') as file:
+					file.writelines(data)
+			elif choose_key == "f4":
+				print("Key \"f4\" was selected!")
+				with open('settings.txt', 'r', encoding='utf-8') as file:
+					data = file.readlines()
+
+				print(data)
+				data[2] = "f4\n"
+
+				with open('settings.txt', 'w', encoding='utf-8') as file:
+					file.writelines(data)
+			elif choose_key == "f5":
+				print("Key \"f5\" was selected!")
+				with open('settings.txt', 'r', encoding='utf-8') as file:
+					data = file.readlines()
+
+				print(data)
+				data[2] = "f5\n"
+
+				with open('settings.txt', 'w', encoding='utf-8') as file:
+					file.writelines(data)
+			elif choose_key == "f6":
+				print("Key \"f6\" was selected!")
+				with open('settings.txt', 'r', encoding='utf-8') as file:
+					data = file.readlines()
+
+				print(data)
+				data[2] = "f6\n"
+
+				with open('settings.txt', 'w', encoding='utf-8') as file:
+					file.writelines(data)
+			elif choose_key == "f7":
+				print("Key \"f7\" was selected!")
+				with open('settings.txt', 'r', encoding='utf-8') as file:
+					data = file.readlines()
+
+				print(data)
+				data[2] = "f7\n"
+
+				with open('settings.txt', 'w', encoding='utf-8') as file:
+					file.writelines(data)
+			elif choose_key == "f8":
+				print("Key \"f8\" was selected!")
+				with open('settings.txt', 'r', encoding='utf-8') as file:
+					data = file.readlines()
+
+				print(data)
+				data[2] = "f8\n"
+
+				with open('settings.txt', 'w', encoding='utf-8') as file:
+					file.writelines(data)
+			elif choose_key == "f9":
+				print("Key \"f9\" was selected!")
+				with open('settings.txt', 'r', encoding='utf-8') as file:
+					data = file.readlines()
+
+				print(data)
+				data[2] = "f9\n"
+
+				with open('settings.txt', 'w', encoding='utf-8') as file:
+					file.writelines(data)
+			else:
+				print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + menuinput + "\" is not a command.")
+
 		elif menuinput == "--exit":
 			break
+
+elif args.deb == True:
+	while True:
+		print("Debug Menu")
+		print("\rdebugmode (--d f/t)")
+		print("\rexit (--exit")
+		debinput = input("$>").lower()
+		if debinput == "--d f":
+			with open('settings.txt', 'r', encoding='utf-8') as file:
+				data = file.readlines()
+
+			print(data)
+			data[3] = "debugmode=false\n"
+
+			with open('settings.txt', 'w', encoding='utf-8') as file:
+				file.writelines(data)
+		elif debinput == "--d t":
+			with open('settings.txt', 'r', encoding='utf-8') as file:
+				data = file.readlines()
+
+			print(data)
+			data[3] = "debugmode=true\n"
+
+			with open('settings.txt', 'w', encoding='utf-8') as file:
+				file.writelines(data)
+		elif debinput == "--exit":
+			break
+		else:
+			print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + debinput + "\" is not a command.")
+else:
+	print("Use python manager.py -h for help.")

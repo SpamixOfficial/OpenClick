@@ -1,3 +1,4 @@
-RED
-firststartup=false
+MAGENTA
+firststartup=true
 f1
+debugmode=true
