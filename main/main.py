@@ -1,8 +1,3 @@
-import os, time
-from pynput.keyboard import Key, Listener
-from pynput.mouse import Button, Controller
-from colorama import Fore, Back, init
-
 # Settings checking!
 firststartup = False
 if True:
@@ -16,14 +11,18 @@ if True:
 		firststartup = False
 
 	settingsfile.close()
-
-## --------------------------------------------------------------- ##
-# Start of program
-
-init(autoreset=True)
 if firststartup == False:
 	print("Run the installation script before running the main program!")
 	quit()
+## --------------------------------------------------------------- ##
+# Start of program
+
+import os, time
+from pynput.keyboard import Key, Listener
+from pynput.mouse import Button, Controller
+from colorama import Fore, Back, init
+
+init(autoreset=True)
 
 mouse = Controller()
 os.system("clear")
