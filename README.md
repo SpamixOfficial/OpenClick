@@ -41,7 +41,7 @@ The project is written in python.
 And lastly, if you find something you feel like can be improved, changed or just something you want to add, suggest it in "ideas" (https://github.com/SpamixOfficial/OpenClick/discussions/1)
 
 
-# DISCLAIMER
+# DISCLAIMERR
 
 Because it's written in python it should also work for Windows, but there's no guarantee!
 It doesn't work on MacOS because of permission issues regarding pynput!
