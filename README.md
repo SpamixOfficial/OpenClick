@@ -30,7 +30,11 @@ Use the command
   python3 main.py
   ```
 to run the script!
-
+Use the command 
+  ```
+  python3 manager.py --c
+  ```
+To open up the customization menu! (Tip! Use -h instead of --c to get the help menu instead!)
 # Extra info
 If you find any bugs, report them!
 The project is written in python.
@@ -44,6 +48,6 @@ It doesn't work on MacOS because of permission issues regarding pynput!
 
 
 # To-do List!
-- [ ] Add customization
+- [X] Add customization
 - [ ] Add constant mode
 - [ ] Something you can suggest in "ideas" (https://github.com/SpamixOfficial/OpenClick/discussions/1)
