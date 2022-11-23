@@ -57,5 +57,5 @@ if presult == True and cresult == True:
 
 
 else:
-	print(Back.RED + "Sorry, but the either one or both of the modules wasn't found. \n Read the instructions for help on how to install them!")
+	print(Back.RED + "Sorry, but either one or both of the modules wasn't found. \n Read the instructions for help on how to install them!")
 	quit()
