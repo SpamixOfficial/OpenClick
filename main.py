@@ -1,6 +1,9 @@
 # Startup Check
 debugswitch = 1
 import os, time, re
+import threading
+from flagser import *
+
 firststartup = False
 if True:
 	settingsread = open("settings.txt", 'r+').read()
@@ -20,6 +23,8 @@ from pynput.keyboard import Key, Listener
 from pynput.mouse import Button, Controller
 from colorama import Fore, Back, init
 color = Fore.RED
+
+
 
 if True:
 	settingsread = open("settings.txt", 'r+').read()
@@ -107,45 +112,82 @@ mouse = Controller()
 
 
 
-openlogo = """ 
-  /$$$$$$                                 /$$$$$$  /$$ /$$           /$$      
- /$$__  $$                               /$$__  $$| $$|__/          | $$      
+openlogo = """
+  /$$$$$$                                 /$$$$$$  /$$ /$$           /$$
+ /$$__  $$                               /$$__  $$| $$|__/          | $$
 | $$  \ $$  /$$$$$$   /$$$$$$  /$$$$$$$ | $$  \__/| $$ /$$  /$$$$$$$| $$   /$$
 | $$  | $$ /$$__  $$ /$$__  $$| $$__  $$| $$      | $$| $$ /$$_____/| $$  /$$/
-| $$  | $$| $$  \ $$| $$$$$$$$| $$  \ $$| $$      | $$| $$| $$      | $$$$$$/ 
-| $$  | $$| $$  | $$| $$_____/| $$  | $$| $$    $$| $$| $$| $$      | $$_  $$ 
+| $$  | $$| $$  \ $$| $$$$$$$$| $$  \ $$| $$      | $$| $$| $$      | $$$$$$/
+| $$  | $$| $$  | $$| $$_____/| $$  | $$| $$    $$| $$| $$| $$      | $$_  $$
 |  $$$$$$/| $$$$$$$/|  $$$$$$$| $$  | $$|  $$$$$$/| $$| $$|  $$$$$$$| $$ \  $$
  \______/ | $$____/  \_______/|__/  |__/ \______/ |__/|__/ \_______/|__/  \__/
-          | $$                                                                
-          | $$                                                                
-          |__/                                                                
+          | $$
+          | $$
+          |__/
 
-                                                                              
-							SpamixOfficial 2022                                                          
+
+							SpamixOfficial 2022
 """
 if debugmode == True:
 	print("Debugmode")
 	print("\r" + str(fullcolorcheck) + str(fullkeycheck))
 for a in "Hello and welcome to":
-	time.sleep(0.1)
+	time.sleep(0.01)
 	print(color + a, end="")
-time.sleep(0.6)
+time.sleep(0.06)
 for a in "...":
 	print(color + a, end="")
-	time.sleep(1)
+	time.sleep(0.2)
 
 os.system("clear")
 for char in openlogo:
 	print(color + char, end="")
-	time.sleep(0.003)
+	time.sleep(0.0003)
 
 ## Start of clicker code
+# variable to controll if the clicker should autoclick
+shouldClick = False
+shouldAuto = False
+clickDelay = 0.2
+
+# check for auto click flag
+class Auto(Flag):
+	shortFlag="-a"
+	longFlag="-autoclick"
+	description='adds autoclick function'
+	def onCall(self,args):
+		global shouldAuto
+		shouldAuto = True
+
+class AutoDelay(Flag):
+	shortFlag="-ad"
+	longFlag="-autoclickdelay"
+	description='sets the autoclick delay (default 0.1 secounds between clicks)'
+	def onCall(self,args):
+		global clickDelay
+		clickDelay = float(args[0])
+
+a = FlagManager([Auto(),AutoDelay()])
+a.check()
+
+
 print(color + "Controls: \n" + str(hotkey) + " to click \nEsc to exit the script!")
 def on_press(key):
 	global Key
 	global debugmode
 	global debugswitch
+	global shouldClick
+	global shouldAuto
+
 	if key == hotkey:
+        # if autoclick flag was set we auto click
+		if shouldAuto == True:
+			#toggles the autoclick
+			shouldClick = not shouldClick
+			# start new thread to handle the autoclicking on
+			autoClickThread = threading.Thread(target=autoClick)
+			autoClickThread.start()
+
 		if debugmode == True:
 			print(key)
 		mouse.press(Button.left)
@@ -161,12 +203,24 @@ def on_press(key):
 			print(debugswitch)
 
 def on_release(key):
+	global shouldClick
 	if key == Key.esc:
+		# Stop autoclick
+		shouldClick = False
 		# Stop listener
 		return False
+
+# method to autoclick
+def autoClick():
+	global shouldClick
+	while shouldClick:
+		mouse.press(Button.left)
+		mouse.release(Button.left)
+		time.sleep(clickDelay)
 
 # Collect events until released
 with Listener(
 		on_press=on_press,
 		on_release=on_release) as listener:
 	listener.join()
+
