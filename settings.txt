@@ -1,6 +1,7 @@
 MAGENTA
 
-f1
+holdclick=f1
 debugmode=false
 firststartup=true
-firststartup=truefirststartup=truefirststartup=truefirststartup=truefirststartup=truefirststartup=truefirststartup=truefirststartup=truefirststartup=true
+constantclick=f2
+
