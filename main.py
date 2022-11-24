@@ -3,6 +3,7 @@ debugswitch = 1
 import os, time, re
 import threading
 from flagser import *
+import json
 
 firststartup = False
 if True:
@@ -27,10 +28,14 @@ color = Fore.RED
 
 
 if True:
-	settingsread = open("settings.txt", 'r+').read()
-	colorscheck = ["BLACK", "BLUE", "CYAN", "GREEN", "LIGHTBLACK_EX", "LIGHTBLUE_EX", "LIGHTCYAN_EX", "LIGHTGREEN_EX", "LIGHTMAGENTA_EX", "LIGHTRED_EX", "LIGHTWHITE_EX", "LIGHTYELLOW_EX", "MAGENTA", "RED", "WHITE", "YELLOW"]
-	word_exp='|'.join(colorscheck)
-	fullcolorcheck = re.findall(word_exp, open("settings.txt", 'r+').read())
+	# settingsread = open("settings.txt", 'r+').read()
+	# colorscheck = ["BLACK", "BLUE", "CYAN", "GREEN", "LIGHTBLACK_EX", "LIGHTBLUE_EX", "LIGHTCYAN_EX", "LIGHTGREEN_EX", "LIGHTMAGENTA_EX", "LIGHTRED_EX", "LIGHTWHITE_EX", "LIGHTYELLOW_EX", "MAGENTA", "RED", "WHITE", "YELLOW"]
+	# word_exp='|'.join(colorscheck)
+	# fullcolorcheck = re.findall(word_exp, open("settings.txt", 'r+').read())
+
+	with open('settings.json') as f:
+		data = json.load(f)
+		fullcolorcheck =  (data['textcolor'])
 
 	if "BLACK" in fullcolorcheck:
 		color = Fore.BLACK
@@ -70,59 +75,24 @@ constantKey = Key.f2
 contantClickDelay = 0.1 # the delay between clicks in constantclick
 
 if True:
-	settingsread = open("settings.txt", 'r+').read()
-	keycheck = [
-    'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9'
-    ]
-	word_exp='|'.join(keycheck)
-	fullkeycheck = re.findall(word_exp, open("settings.txt", 'r+').read())
-
-	if "f1" in fullkeycheck:
-		hotkey = Key.f1
-	elif "f2" in fullkeycheck:
-		hotkey = Key.f2
-	elif "f3" in fullkeycheck:
-		hotkey = Key.f3
-	elif "f4" in fullkeycheck:
-		hotkey = Key.f4
-	elif "f5" in fullkeycheck:
-		hotkey = Key.f5
-	elif "f6" in fullkeycheck:
-		hotkey = Key.f6
-	elif "f7" in fullkeycheck:
-		hotkey = Key.f7
-	elif "f8" in fullkeycheck:
-		hotkey = Key.f8
-	elif "f9" in fullkeycheck:
-		hotkey = Key.f9
+	with open('settings.json') as f:
+		data = json.load(f)
+		hotkey = "Key." + (data['hotkey'])
 
 if True:
-	settingsread = open("settings.txt", 'r+').read().splitlines()
-	# checks the lines for the constantclick key
-	# and set constankey variable to its value
-	for line in settingsread:
-		pair = line.split("=")
-		if "constantclick" == pair[0]:
-			constantKey = 'Key.' + pair[1]
+	with open('settings.json') as f:
+		data = json.load(f)
+		constantKey =  "Key." + (data['constantkey'])
 #sets the constantclickdelay
 if True:
-	settingsread = open("settings.txt", 'r+').read().splitlines()
-	for line in settingsread:
-		pair = line.split("=")
-		if "constantclickdelay" in pair[0]:
-			contantClickDelay = float(pair[1])
+	with open('settings.json') as f:
+		data = json.load(f)
+		constantClickDelay = (data['constantclickdelay'])
 
 if True:
-	settingsread = open("settings.txt", 'r+').read()
-	debugcheck = [
-     "debugmode=true", "debugmode=false"
-    ]
-	word_exp='|'.join(debugcheck)
-	debugcheckr = re.findall(word_exp, open("settings.txt", 'r+').read())
-	if "debugmode=true" in debugcheckr:
-		debugmode = True
-	elif "debugmode=false" in debugcheckr:
-		debugmode = False
+	with open('settings.json') as f:
+		data = json.load(f)
+		debugmode = (data['debugmode'])
 ## --------------------------------------------------------------- ##
 # Start of program
 
