@@ -66,6 +66,9 @@ if True:
 		color = Fore.YELLOW
 
 hotkey = Key.f1
+constantKey = Key.f2
+contantClickDelay = 0.1 # the delay between clicks in constantclick
+
 if True:
 	settingsread = open("settings.txt", 'r+').read()
 	keycheck = [
@@ -92,6 +95,23 @@ if True:
 		hotkey = Key.f8
 	elif "f9" in fullkeycheck:
 		hotkey = Key.f9
+
+if True:
+	settingsread = open("settings.txt", 'r+').read().splitlines()
+	# checks the lines for the constantclick key
+	# and set constankey variable to its value
+	for line in settingsread:
+		pair = line.split("=")
+		if "constantclick" == pair[0]:
+			constantKey = 'Key.' + pair[1]
+#sets the constantclickdelay
+if True:
+	settingsread = open("settings.txt", 'r+').read().splitlines()
+	for line in settingsread:
+		pair = line.split("=")
+		if "constantclickdelay" in pair[0]:
+			contantClickDelay = float(pair[1])
+
 if True:
 	settingsread = open("settings.txt", 'r+').read()
 	debugcheck = [
@@ -145,49 +165,40 @@ for char in openlogo:
 	time.sleep(0.0003)
 
 ## Start of clicker code
-# variable to controll if the clicker should autoclick
-shouldClick = False
-shouldAuto = False
-clickDelay = 0.2
+shouldClick = False # controlls the constantclick
 
-# check for auto click flag
-class Auto(Flag):
-	shortFlag="-a"
-	longFlag="-autoclick"
-	description='adds autoclick function'
-	def onCall(self,args):
-		global shouldAuto
-		shouldAuto = True
-
+# this is Flag class handling constantclick delay
 class AutoDelay(Flag):
-	shortFlag="-ad"
-	longFlag="-autoclickdelay"
-	description='sets the autoclick delay (default 0.1 secounds between clicks)'
+	shortFlag="-cd"
+	longFlag="-constantClickDelay"
+	description='sets the constantclick delay (default 0.1 secounds between clicks)'
 	def onCall(self,args):
-		global clickDelay
-		clickDelay = float(args[0])
+		global contantClickDelay
+		contantClickDelay = float(args[0])
 
-a = FlagManager([Auto(),AutoDelay()])
+a = FlagManager([AutoDelay()])
 a.check()
 
 
 print(color + "Controls: \n" + str(hotkey) + " to click \nEsc to exit the script!")
+
 def on_press(key):
 	global Key
 	global debugmode
 	global debugswitch
 	global shouldClick
-	global shouldAuto
 
-	if key == hotkey:
-        # if autoclick flag was set we auto click
-		if shouldAuto == True:
-			#toggles the autoclick
-			shouldClick = not shouldClick
-			# start new thread to handle the autoclicking on
-			autoClickThread = threading.Thread(target=autoClick)
-			autoClickThread.start()
+# checks if the string values if the objects are the same
+# this makes so we can set the hotkey to a string instead
+# of a key instance
+	if str(key) == str(constantKey): # if the constant key is pressed
 
+		shouldClick = not shouldClick #toggles the autoclick
+		# start new thread to handle the autoclicking on
+		autoClickThread = threading.Thread(target=autoClick)
+		autoClickThread.start()
+
+	if str(key) == str(hotkey): #check hotkey
 		if debugmode == True:
 			print(key)
 		mouse.press(Button.left)
@@ -216,7 +227,7 @@ def autoClick():
 	while shouldClick:
 		mouse.press(Button.left)
 		mouse.release(Button.left)
-		time.sleep(clickDelay)
+		time.sleep(contantClickDelay) #add delay
 
 # Collect events until released
 with Listener(
