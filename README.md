@@ -1,7 +1,7 @@
 # OpenClick
 Welcome to OpenClick! 
 OpenClick is an open source autoclicker for Debian and Arch based systems!
-It also works on Windows if you would like to use it instead of OPAutoclicker.exe!
+It also works on Windows (read Disclaimer!) if you would like to use it instead of OPAutoclicker.exe!
 
 # Before you start...
 Make sure you have python installed! Most linux distros comes with python out of the box, but check so its installed just in case it isn't!
