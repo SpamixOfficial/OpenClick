@@ -50,4 +50,6 @@ It doesn't work on MacOS because of permission issues regarding pynput!
 # To-do List!
 - [X] Add customization
 - [ ] Add constant mode
+- [ ] Create aur package
+- [ ] (Maybe) Create deb package
 - [ ] Something you can suggest in "ideas" (https://github.com/SpamixOfficial/OpenClick/discussions/1)
