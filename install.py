@@ -1,6 +1,5 @@
 import os
-cresult = False
-presult = False
+installedPackeges = True
 # Module checking!
 
 print("Checking for the modules on your system...")
@@ -8,14 +7,15 @@ print("Checking for the modules on your system...")
 try:
 	import colorama
 	print("Module \"colorama\" was found!")
-	cresult = True
+	# cresult = True
 except ModuleNotFoundError:
 	print("The module named \"colorama\" wasn't found! Do you want to install it? (y/n)")
 	coloramainput = input().upper()
 	if coloramainput == "Y":
 		os.system("pip install colorama")
-		cresult = True
+		# cresult = True
 	elif coloramainput == "N":
+		installedPackeges = False
 		print("Then you need to install it. Read the instructions on the github page or read the README.md!")
 	else:
 		print("That wasn't a N or an Y.")
@@ -30,15 +30,32 @@ except ModuleNotFoundError:
 	pynputinput = input().upper()
 	if pynputinput == "Y":
 		os.system("pip install pynput")
-		presult = True
+		# presult = True
 	elif pynputinput == "N":
+		installedPackeges = False
+		print("Then you need to install it. Read the instructions on the github page or read the README.md!")
+	else:
+		print("That wasn't a N or an Y.")
+		quit()
+#checking for flagser
+try:
+	import flagser
+	print("Module \"flagser\" was found!")
+	presult = True
+except ModuleNotFoundError:
+	print("The module named \"flagser\" wasn't found! Do you want to install it? (y/n)")
+	pynputinput = input().upper()
+	if pynputinput == "Y":
+		os.system("pip install flagser")
+		# presult = True
+	elif pynputinput == "N":
+		installedPackeges = False
 		print("Then you need to install it. Read the instructions on the github page or read the README.md!")
 	else:
 		print("That wasn't a N or an Y.")
 		quit()
 
-	
-if presult == True and cresult == True:	
+if installedPackeges:
 	f = open('./settings.txt','r')
 	a = ['firststartup=false']
 	lst = []
