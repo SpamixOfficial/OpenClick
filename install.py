@@ -1,4 +1,4 @@
-import os
+import os, json
 installedPackeges = True
 # Module checking!
 
@@ -56,21 +56,27 @@ except ModuleNotFoundError:
 		quit()
 
 if installedPackeges:
-	f = open('./settings.txt','r')
-	a = ['firststartup=false']
-	lst = []
-	for line in f:
-	    for word in a:
-	        if word in line:
-	            line = line.replace(word,'')
-	    lst.append(line)
-	f.close()
-	f = open('./settings.txt','w')
-	for line in lst:
-	    f.write(line)
-	f.write("firststartup=true")
-	f.close()
-	print("You are ready to go!")
+	#f = open('./settings.txt','r')
+	#a = ['firststartup=false']
+	#lst = []
+	#for line in f:
+	#    for word in a:
+	#        if word in line:
+	#            line = line.replace(word,'')
+	#    lst.append(line)
+	#f.close()
+	#f = open('./settings.txt','w')
+	#for line in lst:
+	#    f.write(line)
+	#f.write("firststartup=true")
+	#f.close()
+	with open('settings.json') as f:
+		data = json.load(f)
+
+	data['firststartup']=True
+	with open('settings.json', 'w') as outfile:
+		json.dump(data, outfile,indent=4)
+	print("You are ready to go! \nRead the docs over at https://github.com/SpamixOfficial/OpenClick/blob/main/README.md for more information!")
 
 
 else:

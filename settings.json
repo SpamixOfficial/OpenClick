@@ -2,7 +2,7 @@
     "hotkey": "f1",
     "constantkey": "f2",
     "constantclickdelay": 0.5,
-    "firststartup": true,
+    "firststartup": false,
     "debugmode": false,
     "textcolor": "WHITE"
 }

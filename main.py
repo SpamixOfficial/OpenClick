@@ -2,24 +2,29 @@
 debugswitch = 1
 import os, time, re
 import threading
-from flagser import *
 import json
 
 firststartup = False
 if True:
-	settingsread = open("settings.txt", 'r+').read()
-	rawstartcheck = ["firststartup=true", "firststartup=false"]
-	word_exp='|'.join(rawstartcheck)
-	fullstartupcheck = re.findall(word_exp, open("settings.txt", 'r+').read())
-	if "firststartup=true" in fullstartupcheck:
+	#settingsread = open("settings.txt", 'r+').read()
+	#rawstartcheck = ["firststartup=true", "firststartup=false"]
+	#word_exp='|'.join(rawstartcheck)
+	#fullstartupcheck = re.findall(word_exp, open("settings.txt", 'r+').read())
+	with open('settings.json') as f:
+		data = json.load(f)
+
+	fullstartupcheck = (data['firststartup'])
+
+	if fullstartupcheck == True:
 		firststartup = True
-	elif "firststartup=false" in fullstartupcheck:
+	elif fullstartupcheck == False:
 		firststartup = False
 		print("Run the installation script before running the main program!")
 		quit()
 
 ## --------------------------------------------------------------- ##
 # Settings Check
+from flagser import *
 from pynput.keyboard import Key, Listener
 from pynput.mouse import Button, Controller
 from colorama import Fore, Back, init
@@ -150,7 +155,7 @@ a = FlagManager([AutoDelay()])
 a.check()
 
 
-print(color + "Controls: \n" + str(hotkey) + " to click \nEsc to exit the script!")
+print(color + "Controls: \n" + str(hotkey) + " to click (hold to click!) \n" + str(constantKey) + " to click constantly (toggle on/off by clicking the key!)\nEsc to exit!")
 
 def on_press(key):
 	global Key

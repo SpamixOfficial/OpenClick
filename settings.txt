@@ -1,8 +1,0 @@
-MAGENTA
-
-holdclick=f1
-debugmode=false
-firststartup=true
-constantclick=f2
-constantclickdelay=0.05
-

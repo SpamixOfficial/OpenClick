@@ -24,6 +24,7 @@ if args.c == True:
 		print("	\r Textcolor (--textcolor)")
 		print(" \r Color Examples (--colorexamples)")
 		print("	\r Key (--key)")
+		print("	\r Constant Key (--ckey)")
 		print("\r Exit (--exit)")
 
 		menuinput = input("$>").lower()
@@ -55,6 +56,16 @@ if args.c == True:
 
 			if choose_key in hotkeynames: # checks if the choosen key is in the key list
 				data['hotkey']=choose_key
+			else:
+				print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + menuinput + "\" is not a command.")
+		elif menuinput == "--ckey":
+			for key in hotkeynames:
+				print(key)
+			print("\n Choose a key!")
+			choose_key = input("$\"Key\">").lower()
+
+			if choose_key in hotkeynames: # checks if the choosen key is in the key list
+				data['constantkey']=choose_key
 			else:
 				print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + menuinput + "\" is not a command.")
 
