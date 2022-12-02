@@ -1,14 +1,36 @@
 # OpenClick
 Welcome to OpenClick! 
 OpenClick is an open source autoclicker for Debian and Arch based systems!
-It also works on Windows (read Disclaimer!) if you would like to use it instead of OPAutoclicker.exe!
+Currently it does not work on windows, but a fix is on the way!
+
+# Intro
+So, what is an autoclicker?
+An autoclicker is an application or an automatisation that clicks automatically.
+Many users would probably say - "but what about xdotool?".
+Of course you could use xdotool, but then you would not have any control over when it should click, and when it should not! This is basically an easy to use autoclicker and tool written in python!
+
+Have fun :D
+
 
 # Before you start...
 Make sure you have python installed! Most linux distros comes with python out of the box, but check so its installed just in case it isn't!
 Also make sure you have "pip" installed! Most linux distros comes with pip out of the box, but once again, check so its installed just in case it isn't!
+## !IMPORTANT!
+And lastly, make sure you have tKinter installed. It comes prebundled with python, though sometimes the module named "pynput" needs a manual installation of tKinter to work!
+Here is how to install it. If you can't find your distro's way to install it here, then search the internet.
+
+**For Debian/Ubuntu based distros**
+  ```
+  sudo apt-get install python-tk
+  ```
 
 
-
+**For Arch Linux based distros**
+  ```
+  sudo pacman -S tk
+  ```
+  
+  
 # How to install
 Step 1:
   Run the installation script!
@@ -43,13 +65,13 @@ And lastly, if you find something you feel like can be improved, changed or just
 
 # DISCLAIMER
 
-Because it's written in python it should also work for Windows, but there's no guarantee!
-It doesn't work on MacOS because of permission issues regarding pynput!
+It doesn't work on MacOS and Fedora because of issues regarding pynput!
 
 
 # To-do List!
 - [X] Add customization
 - [ ] Add constant mode
+- [ ] Add Windows Support
 - [ ] Create aur package
 - [ ] (Maybe) Create deb package
 - [ ] Something you can suggest in "ideas" (https://github.com/SpamixOfficial/OpenClick/discussions/1)
