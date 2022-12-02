@@ -76,7 +76,7 @@ if installedPackeges:
 	data['firststartup']=True
 	with open('settings.json', 'w') as outfile:
 		json.dump(data, outfile,indent=4)
-	print("You are ready to go! \nRead the docs over at https://github.com/SpamixOfficial/OpenClick/blob/main/README.md for more information!")
+	print("You are ready to go! \nPlease make sure you have tKinter installed manually. If it isn't installed then your can read the readme for examples on how to install it!\nRead the docs over at https://github.com/SpamixOfficial/OpenClick/blob/main/README.md for more information!")
 
 
 else:
