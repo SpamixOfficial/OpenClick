@@ -1,3 +1,9 @@
+## Credits
+Thanks to the following persons for commiting to the project!
+
+* spynetS (Alfred Roos, https://github.com/spynetS)
+
+
 # OpenClick
 Welcome to OpenClick! 
 OpenClick is an open source autoclicker for Debian and Arch based systems!
@@ -23,7 +29,10 @@ Here is how to install it. If you can't find your distro's way to install it her
   ```
   sudo apt-get install python-tk
   ```
-
+**For Arch Linux based distros**
+  ```
+  sudo pacman -S tk
+  ```
 
 **For Arch Linux based distros**
   ```
@@ -56,7 +65,12 @@ Use the command
   ```
   python3 manager.py --c
   ```
-To open up the customization menu! (Tip! Use -h instead of --c to get the help menu instead!)
+to open up the customization menu! (Tip! Use -h instead of --c to get the help menu instead!)
+If you want to customize the constant click delay, then use the command 
+  ```
+  python3 main.py -cd [value] 
+  ```
+The default value is 0,5 seconds!
 # Extra info
 If you find any bugs, report them!
 The project is written in python.
@@ -65,13 +79,13 @@ And lastly, if you find something you feel like can be improved, changed or just
 
 # DISCLAIMER
 
-It doesn't work on MacOS and Fedora because of issues regarding pynput!
+It doesn't work on MacOS and Fedora because of issues regarding a module named pynput!
 
 
 # To-do List!
 - [X] Add customization
-- [ ] Add constant mode
-- [ ] Add Windows Support
+- [X] Add constant mode
+- [ ] Add Windows support
 - [ ] Create aur package
 - [ ] (Maybe) Create deb package
 - [ ] Something you can suggest in "ideas" (https://github.com/SpamixOfficial/OpenClick/discussions/1)

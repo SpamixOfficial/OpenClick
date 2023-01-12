@@ -1,4 +1,0 @@
-MAGENTA
-firststartup=false
-f1
-debugmode=false
