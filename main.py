@@ -134,7 +134,7 @@ for a in "...":
 	print(color + a, end="")
 	time.sleep(0.2)
 
-os.system("clear")
+os.system('cls' if os.name == 'nt' else 'clear')
 for char in openlogo:
 	print(color + char, end="")
 	time.sleep(0.0003)

@@ -85,7 +85,7 @@ It doesn't work on MacOS and Fedora because of issues regarding a module named p
 # To-do List!
 - [X] Add customization
 - [X] Add constant mode
-- [ ] Add Windows support
+- [X] Add Windows support
 - [ ] Create aur package
 - [ ] (Maybe) Create deb package
 - [ ] Something you can suggest in "ideas" (https://github.com/SpamixOfficial/OpenClick/discussions/1)
