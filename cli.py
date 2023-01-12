@@ -1,0 +1,314 @@
+import argparse, os, time, re, threading, json
+from colorama import Fore, Back, init
+from pynput.keyboard import Key, Listener
+from pynput.mouse import Button, Controller
+
+
+
+global shouldClick	
+init(autoreset=True)
+colors = dict(Fore.__dict__.items())
+nocolors = ["BLACK", "BLUE", "CYAN", "GREEN", "LIGHTBLACK_EX", "LIGHTBLUE_EX", "LIGHTCYAN_EX", "LIGHTGREEN_EX",
+"LIGHTMAGENTA_EX", "LIGHTRED_EX", "LIGHTWHITE_EX", "LIGHTYELLOW_EX", "MAGENTA", "RED", "RESET", "WHITE", "YELLOW"]
+hotkeynames = [
+	'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9'
+	]
+parser = argparse.ArgumentParser(description='OpenClick Help')
+parser.add_argument("--c", "--custom", help="Opens the customization menu", action="store_true")
+parser.add_argument("--deb", help="Debug", action="store_true")
+parser.add_argument("-cd", help="Constant Click Delay", action="store", type=float)
+
+args = parser.parse_args()
+
+import json
+# load the json file and store it as data
+with open('settings.json') as f:
+	data = json.load(f)
+
+if args.c == True:
+	while True:
+		print("Customization Menu")
+		print("\r")
+		print("	\r Textcolor (--textcolor)")
+		print(" \r Color Examples (--colorexamples)")
+		print("	\r Key (--key)")
+		print("	\r Constant Key (--ckey)")
+		print("	\r Constant Click Delay (--cdelay)")
+		print("	\r Explainer (--help) (This one explains all settings!")
+		print("\r Exit (--exit)")
+
+		menuinput = input("$>").lower()
+
+		if menuinput == "--colorexamples":
+			print("Here are the colors!")
+			for color in colors.keys():
+				print(colors[color] + f"{color}")
+
+			print("\n")
+
+		elif menuinput == "--textcolor":
+
+			for color in nocolors:
+				print(color)
+
+			print("\nChoose a color!")
+			choose_color = input("$\"TextColor\">").upper()
+			# check if the chosen color is in the color list and if so set the textcolor to that value
+			if choose_color in nocolors:
+				data['textcolor']=choose_color
+			else:
+				print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + choose_color + "\" is not a valid color.")
+		elif menuinput == "--key":
+			for key in hotkeynames:
+				print(key)
+			print("\n Choose a key!")
+			choose_key = input("$\"Key\">").lower()
+
+			if choose_key in hotkeynames: # checks if the choosen key is in the key list
+				data['hotkey']=choose_key
+			else:
+				print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + menuinput + "\" is not a command.")
+		elif menuinput == "--ckey":
+			for key in hotkeynames:
+				print(key)
+			print("\n Choose a key!")
+			choose_key = input("$\"Key\">").lower()
+
+			if choose_key in hotkeynames: # checks if the choosen key is in the key list
+				data['constantkey']=choose_key
+			else:
+				print("The key you specified either doesn't exist or it isn't supported at the time.")
+		
+		elif menuinput == "--cdelay":
+			print("\nChoose a value!")
+			choose_key = input("$\"CDelay\">")
+		
+			try:
+				cdelay = float(choose_key)
+				data['constantclickdelay'] = float(choose_key)
+			except ValueError:
+				print("You must input a number.")		
+		elif menuinput == "--help":
+			print("\r Textcolor (--textcolor) - The color of the text you see in the terminal.")
+			print("\r Color Examples (--colorexamples) - Shows you the colors you can choose from.")
+			print("\r Key (--key) - The key for the \"Normal\" mode.")
+			print("\r Constant Key (--ckey) - The key for the \"Constant\" mode.")
+			print("\r Constant Click Delay (--cdelay) - The delay for the \"Constant\" mode.")
+			print("\r Explainer (--help) (This one explains all settings!")
+			print("\r Exit (--exit)")
+
+		elif menuinput == "--exit":
+			break
+
+		else:
+			print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + menuinput + "\" is not a command.")
+		
+		# saves the settings
+		with open('settings.json', 'w') as outfile:
+				json.dump(data, outfile,indent=4)
+
+elif args.deb == True:
+	while True:
+		print("Debug Menu")
+		print("\rdebugmode (--d f/t)")
+		print("\rexit (--exit")
+		debinput = input("$>").lower()
+		if debinput == "--d f":
+			data['debugmode']=False
+		elif debinput == "--d t":
+			data['debugmode']=True
+		elif debinput == "--exit":
+			break
+		else:
+			print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + debinput + "\" is not a command.")
+		with open('settings.json', 'w') as outfile:
+				json.dump(data, outfile,indent=4)
+else:
+	# Startup Check
+	firststartup = False
+	if True:
+		#settingsread = open("settings.txt", 'r+').read()
+		#rawstartcheck = ["firststartup=true", "firststartup=false"]
+		#word_exp='|'.join(rawstartcheck)
+		#fullstartupcheck = re.findall(word_exp, open("settings.txt", 'r+').read())
+		with open('settings.json') as f:
+			data = json.load(f)
+
+		fullstartupcheck = (data['firststartup'])
+
+		if fullstartupcheck == True:
+			firststartup = True
+		elif fullstartupcheck == False:
+			firststartup = False
+			print("Run the installation script before running the main program!")
+			quit()
+
+	## --------------------------------------------------------------- ##
+	# Settings Check
+	color = Fore.RED
+
+
+
+	if True:
+		# settingsread = open("settings.txt", 'r+').read()
+		# colorscheck = ["BLACK", "BLUE", "CYAN", "GREEN", "LIGHTBLACK_EX", "LIGHTBLUE_EX", "LIGHTCYAN_EX", "LIGHTGREEN_EX", "LIGHTMAGENTA_EX", "LIGHTRED_EX", "LIGHTWHITE_EX", "LIGHTYELLOW_EX", "MAGENTA", "RED", "WHITE", "YELLOW"]
+		# word_exp='|'.join(colorscheck)
+		# fullcolorcheck = re.findall(word_exp, open("settings.txt", 'r+').read())
+
+		with open('settings.json') as f:
+			data = json.load(f)
+			fullcolorcheck =  (data['textcolor'])
+
+		if "BLACK" in fullcolorcheck:
+			color = Fore.BLACK
+		elif "BLUE" in fullcolorcheck:
+			color = Fore.BLUE
+		elif "CYAN" in fullcolorcheck:
+			color = Fore.CYAN
+		elif "GREEN" in fullcolorcheck:
+			color = Fore.GREEN
+		elif "LIGHTBLACK_EX" in fullcolorcheck:
+			color = Fore.LIGHTBLACK_EX
+		elif "LIGHTBLUE_EX" in fullcolorcheck:
+			color = Fore.LIGHTBLUE_EX
+		elif "LIGHTCYAN_EX" in fullcolorcheck:
+			color = Fore.LIGHTCYAN_EX
+		elif "LIGHTGREEN_EX" in fullcolorcheck:
+			color = Fore.LIGHTGREEN_EX
+		elif "LIGHTMAGENTA_EX" in fullcolorcheck:
+			color = Fore.LIGTMAGENTA_EX
+		elif "LIGHTRED_EX" in fullcolorcheck:
+			color = Fore.LIGHTRED_EX
+		elif "LIGHTWHITE_EX" in fullcolorcheck:
+			color = Fore.LIGHTWHITE_EX
+		elif "LIGHTYELLOW_EX" in fullcolorcheck:
+			color = Fore.LIGHTYELLOW_EX
+		elif "MAGENTA" in fullcolorcheck:
+			color = Fore.MAGENTA
+		elif "RED" in fullcolorcheck:
+			color = Fore.RED
+		elif "WHITE" in fullcolorcheck:
+			color = Fore.WHITE
+		elif "YELLOW" in fullcolorcheck:
+			color = Fore.YELLOW
+
+	hotkey = Key.f1
+	constantKey = Key.f2
+	contantClickDelay = 0.1 # the delay between clicks in constantclick
+
+	if True:
+		with open('settings.json') as f:
+			data = json.load(f)
+			hotkey = "Key." + (data['hotkey'])
+
+	if True:
+		with open('settings.json') as f:
+			data = json.load(f)
+			constantKey =  "Key." + (data['constantkey'])
+	#sets the constantclickdelay
+	if True:
+		with open('settings.json') as f:
+			data = json.load(f)
+			constantClickDelay = (data['constantclickdelay'])
+
+	if True:
+		with open('settings.json') as f:
+			data = json.load(f)
+			debugmode = (data['debugmode'])
+	## --------------------------------------------------------------- ##
+	# Start of program
+	contantClickDelay = args.cd
+
+	init(autoreset=True)
+
+	mouse = Controller()
+
+
+
+	openlogo = """
+  /$$$$$$                                 /$$$$$$  /$$ /$$           /$$
+ /$$__  $$                               /$$__  $$| $$|__/          | $$
+| $$  \ $$  /$$$$$$   /$$$$$$  /$$$$$$$ | $$  \__/| $$ /$$  /$$$$$$$| $$   /$$
+| $$  | $$ /$$__  $$ /$$__  $$| $$__  $$| $$      | $$| $$ /$$_____/| $$  /$$/
+| $$  | $$| $$  \ $$| $$$$$$$$| $$  \ $$| $$      | $$| $$| $$      | $$$$$$/
+| $$  | $$| $$  | $$| $$_____/| $$  | $$| $$    $$| $$| $$| $$      | $$_  $$
+|  $$$$$$/| $$$$$$$/|  $$$$$$$| $$  | $$|  $$$$$$/| $$| $$|  $$$$$$$| $$ \  $$
+ \______/ | $$____/  \_______/|__/  |__/ \______/ |__/|__/ \_______/|__/  \__/
+          | $$
+          | $$
+          |__/
+
+
+							SpamixOfficial 2022
+"""
+	if debugmode == True:
+		print("Debugmode")
+		print("\r" + str(fullcolorcheck) + str(fullkeycheck))
+	for a in "Hello and welcome to":
+		time.sleep(0.01)
+		print(color + a, end="")
+	time.sleep(0.06)
+	for a in "...":
+		print(color + a, end="")
+		time.sleep(0.2)
+
+	os.system('cls' if os.name == 'nt' else 'clear')
+	for char in openlogo:
+		print(color + char, end="")
+		time.sleep(0.0003)
+
+
+
+	print(color + "Controls: \n" + str(hotkey) + " to click (hold to click!) \n" + str(constantKey) + " to click constantly (toggle on/off by clicking the key!)\nEsc to exit!")
+
+
+	## Start of clicker code
+	shouldClick = False # controlls the constantclick
+
+	def on_press(key):
+		global Key
+		global debugmode
+		global shouldClick
+
+	# checks if the string values if the objects are the same
+	# this makes so we can set the hotkey to a string instead
+	# of a key instance
+
+		if str(key) == str(constantKey): # if the constant key is pressed
+
+			shouldClick = not shouldClick #toggles the autoclick
+			# start new thread to handle the autoclicking on
+			autoClickThread = threading.Thread(target=autoClick)
+			autoClickThread.start()
+
+		if str(key) == str(hotkey): #check hotkey
+			if debugmode == True:
+				print(key)
+			mouse.press(Button.left)
+			mouse.release(Button.left)
+
+		if str(key) == str(Key.delete):
+			debugmode = not debugmode #toggles the debugmode
+
+	def on_release(key):
+		global shouldClick
+		if key == Key.esc:
+			# Stop autoclick
+			shouldClick = False
+			# Stop listener
+			return False
+
+
+	# method to autoclick
+	def autoClick():
+		global shouldClick
+		while shouldClick:
+			mouse.press(Button.left)
+			mouse.release(Button.left)
+			time.sleep(contantClickDelay) #add delay
+
+	# Collect events until released
+	with Listener(
+			on_press=on_press,
+			on_release=on_release) as listener:
+		listener.join()

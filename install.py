@@ -37,23 +37,6 @@ except ModuleNotFoundError:
 	else:
 		print("That wasn't a N or an Y.")
 		quit()
-#checking for flagser
-try:
-	import flagser
-	print("Module \"flagser\" was found!")
-	presult = True
-except ModuleNotFoundError:
-	print("The module named \"flagser\" wasn't found! Do you want to install it? (y/n)")
-	pynputinput = input().upper()
-	if pynputinput == "Y":
-		os.system("pip install flagser")
-		# presult = True
-	elif pynputinput == "N":
-		installedPackeges = False
-		print("Then you need to install it. Read the instructions on the github page or read the README.md!")
-	else:
-		print("That wasn't a N or an Y.")
-		quit()
 
 if installedPackeges:
 	#f = open('./settings.txt','r')

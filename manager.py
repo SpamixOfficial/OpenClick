@@ -25,6 +25,8 @@ if args.c == True:
 		print(" \r Color Examples (--colorexamples)")
 		print("	\r Key (--key)")
 		print("	\r Constant Key (--ckey)")
+		print("	\r Constant Click Delay (--cdelay)")
+		print("	\r Explainer (--help) (This one explains all settings!")
 		print("\r Exit (--exit)")
 
 		menuinput = input("$>").lower()
@@ -67,10 +69,32 @@ if args.c == True:
 			if choose_key in hotkeynames: # checks if the choosen key is in the key list
 				data['constantkey']=choose_key
 			else:
-				print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + menuinput + "\" is not a command.")
+				print("The key you specified either doesn't exist or it isn't supported at the time.")
+		
+		elif menuinput == "--cdelay":
+			print("\nChoose a value!")
+			choose_key = input("$\"CDelay\">")
+		
+			try:
+				cdelay = float(choose_key)
+				data['constantclickdelay'] = float(choose_key)
+			except ValueError:
+				print("You must input a number.")		
+		elif menuinput == "--help":
+			print("\r Textcolor (--textcolor) - The color of the text you see in the terminal.")
+			print("\r Color Examples (--colorexamples) - Shows you the colors you can choose from.")
+			print("\r Key (--key) - The key for the \"Normal\" mode.")
+			print("\r Constant Key (--ckey) - The key for the \"Constant\" mode.")
+			print("\r Constant Click Delay (--cdelay) - The delay for the \"Constant\" mode.")
+			print("\r Explainer (--help) (This one explains all settings!")
+			print("\r Exit (--exit)")
 
 		elif menuinput == "--exit":
 			break
+
+		else:
+			print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + menuinput + "\" is not a command.")
+
 		# saves the settings
 		with open('settings.json', 'w') as outfile:
 				json.dump(data, outfile,indent=4)

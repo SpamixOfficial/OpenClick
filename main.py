@@ -1,9 +1,11 @@
 # Startup Check
 debugswitch = 1
-import os, time, re
+import os, time, re, argparse
 import threading
 import json
-
+parser = argparse.ArgumentParser(description="OpenClick Help")
+parser.add_argument("-cd", help="Constant Click Delay", action="store", type=float)
+args = parser.parse_args()
 firststartup = False
 if True:
 	#settingsread = open("settings.txt", 'r+').read()
@@ -24,7 +26,6 @@ if True:
 
 ## --------------------------------------------------------------- ##
 # Settings Check
-from flagser import *
 from pynput.keyboard import Key, Listener
 from pynput.mouse import Button, Controller
 from colorama import Fore, Back, init
@@ -98,6 +99,8 @@ if True:
 	with open('settings.json') as f:
 		data = json.load(f)
 		debugmode = (data['debugmode'])
+
+contantClickDelay = args.cd
 ## --------------------------------------------------------------- ##
 # Start of program
 
@@ -143,16 +146,16 @@ for char in openlogo:
 shouldClick = False # controlls the constantclick
 
 # this is Flag class handling constantclick delay
-class AutoDelay(Flag):
-	shortFlag="-cd"
-	longFlag="-constantClickDelay"
-	description='sets the constantclick delay (default 0.1 secounds between clicks)'
-	def onCall(self,args):
-		global contantClickDelay
-		contantClickDelay = float(args[0])
+#class AutoDelay(Flag):
+#	shortFlag="-cd"
+#	longFlag="-constantClickDelay"
+#	description='sets the constantclick delay (default 0.1 secounds between clicks)'
+#	def onCall(self,args):
+#		global contantClickDelay
+#		contantClickDelay = float(args[0])
 
-a = FlagManager([AutoDelay()])
-a.check()
+#a = FlagManager([AutoDelay()])
+#a.check()
 
 
 print(color + "Controls: \n" + str(hotkey) + " to click (hold to click!) \n" + str(constantKey) + " to click constantly (toggle on/off by clicking the key!)\nEsc to exit!")
