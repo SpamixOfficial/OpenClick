@@ -29,13 +29,17 @@ Here is how to install it. If you can't find your distro's way to install it her
   ```
   sudo apt-get install python-tk
   ```
-
-
 **For Arch Linux based distros**
   ```
   sudo pacman -S tk
   ```
 
+**For Arch Linux based distros**
+  ```
+  sudo pacman -S tk
+  ```
+  
+  
 # How to install
 Step 1:
   Run the installation script!
@@ -75,7 +79,7 @@ And lastly, if you find something you feel like can be improved, changed or just
 
 # DISCLAIMER
 
-It doesn't work on MacOS and Fedora because of issues regarding pynput!
+It doesn't work on MacOS and Fedora because of issues regarding a module named pynput!
 
 
 # To-do List!
