@@ -34,12 +34,7 @@ Here is how to install it. If you can't find your distro's way to install it her
   sudo pacman -S tk
   ```
 
-**For Arch Linux based distros**
-  ```
-  sudo pacman -S tk
-  ```
-  
-  
+
 # How to install
 Step 1:
   Run the installation script!
