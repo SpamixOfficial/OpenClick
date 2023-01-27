@@ -12,7 +12,7 @@ Currently the only way you can run this autoclicker on Windows is by running the
 # The 2 different editions (READ ME!)
 There are 2 different editions/versions of this software. 
 
-Either you use the "Module" Edition, which consits of the install.py, the main.py adn the manager.py file, or you run the "Full Edition". The "Module" Edition is cross-platform, since it works on Debian, Arch Linux and Windows. 
+Either you use the "Module" Edition, which consists of the install.py, the main.py adn the manager.py file, or you run the "Full Edition". The "Module" Edition is cross-platform, since it works on Debian, Arch Linux and Windows. 
 
 The "Full" Edition is the 2 files (main.py and manager.py) made into one file that's also installed as a command on your system. The "Full" Edition isn't cross-platform, it does not work on windows. 
 
