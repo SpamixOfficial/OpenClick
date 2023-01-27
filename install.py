@@ -1,5 +1,31 @@
-import os, json
+import os, json, requests
 installedPackeges = True
+# loading json data
+with open('settings.json') as f:
+	data = json.load(f)
+
+# Setting version ID
+idcheck = input("Is this the latest release? (y/n): ").lower()
+
+if idcheck == "y":
+	response = requests.get("https://api.github.com/repos/SpamixOfficial/OpenClick/releases/latest")
+	respdata = response.json()
+	relid = respdata["id"]
+	data['release']=str(relid)
+elif idcheck == "n":
+	idcheck2 = input("If not, then enter the tag of the release: ")
+	response = requests.get("https://api.github.com/repos/SpamixOfficial/OpenClick/releases/tags/" + idcheck2)
+	if response.status_code == 404:
+		print("404 Error: Non-valid tag: " + idcheck2)
+		quit()
+	respdata = response.json()
+	relid = respdata["id"]
+	data['release']=str(relid)
+else:
+	print("\"" + idcheck + "\" is not a valid response")
+	quit
+
+
 # Module checking!
 
 print("Checking for the modules on your system...")
@@ -53,13 +79,11 @@ if installedPackeges:
 	#    f.write(line)
 	#f.write("firststartup=true")
 	#f.close()
-	with open('settings.json') as f:
-		data = json.load(f)
 
 	data['firststartup']=True
 	with open('settings.json', 'w') as outfile:
 		json.dump(data, outfile,indent=4)
-	print("You are ready to go! \nPlease make sure you have tKinter installed manually. If it isn't installed then your can read the readme for examples on how to install it!\nRead the docs over at https://github.com/SpamixOfficial/OpenClick/blob/main/README.md for more information!")
+	print("You are ready to go!\n \nPlease make sure you have tKinter installed manually. If it isn't installed then you can read the readme for examples on how to install it!\nRead the docs over at https://github.com/SpamixOfficial/OpenClick/blob/main/README.md for more information!")
 
 
 else:

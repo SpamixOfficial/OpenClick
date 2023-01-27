@@ -1,8 +1,10 @@
 {
+    "release": "88685166",
+    "autoupdate": false,
     "hotkey": "f1",
     "constantkey": "f2",
     "constantclickdelay": 0.5,
-    "firststartup": false,
+    "firststartup": true,
     "debugmode": false,
     "textcolor": "WHITE"
 }
