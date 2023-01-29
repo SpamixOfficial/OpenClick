@@ -13,7 +13,12 @@ if idcheck == "y":
 	relid = respdata["id"]
 	data['release']=str(relid)
 elif idcheck == "n":
-	idcheck2 = input("If not, then enter the tag of the release: ")
+	response = requests.get("https://api.github.com/repos/SpamixOfficial/OpenClick/tags")
+	respdata = json.loads(response.text)
+	print("\nReleases:")
+	for tag in respdata:
+		print(tag["name"])
+	idcheck2 = input("Enter the tag of the release: ")
 	response = requests.get("https://api.github.com/repos/SpamixOfficial/OpenClick/releases/tags/" + idcheck2)
 	if response.status_code == 404:
 		print("404 Error: Non-valid tag: " + idcheck2)
