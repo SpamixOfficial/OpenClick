@@ -14,7 +14,7 @@ if [[ "$EUID" != 0 ]]; then
 fi
 pkgname="openclick"
 
-python install.py
+python install.py || python3 install.py || echo 'Python is not installed, exiting...'
 
 sudo install -Dm755 cli.py /usr/bin/openclick
 sudo install -Dm444 LICENSE "/usr/share/licenses/$pkgname/LICENSE"

@@ -6,7 +6,7 @@ if [[ "$EUID" != 0 ]]; then
 
     sudo -k
     if sudo true; then
-        echo "Correct password, running installation."
+        echo "Correct password, running uninstallation."
     else
         echo "Wrong Password, exiting."
         exit 1

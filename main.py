@@ -128,7 +128,7 @@ openlogo = """
 """
 if debugmode == True:
 	print("Debugmode")
-	print("\r" + str(fullcolorcheck) + str(fullkeycheck))
+	print("\r" + str(fullcolorcheck) + str(hotkey))
 for a in "Hello and welcome to":
 	time.sleep(0.01)
 	print(color + a, end="")
