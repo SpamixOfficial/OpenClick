@@ -3,8 +3,11 @@ Thanks to the following persons for commiting to the project!
 
 * spynetS (Alfred Roos, https://github.com/spynetS)
 
-
 # OpenClick
+[![GitHub license](https://img.shields.io/github/license/SpamixOfficial/Openclick.svg)](https://github.com/SpamixOfficial/Openclick/blob/master/LICENSE)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/SpamixOfficial/Openclick/graphs/commit-activity)
+[![GitHub release](https://img.shields.io/github/release/SpamixOfficial/Openclick.svg)](https://GitHub.com/SpamixOfficial/Openclick/releases/)
+
 Welcome to OpenClick! 
 OpenClick is an open source autoclicker for Debian and Arch based systems!
 Currently it does not work on windows, but a fix is on the way!
@@ -86,3 +89,5 @@ It doesn't work on MacOS and Fedora because of issues regarding a module named p
 - [ ] Create aur package
 - [ ] (Maybe) Create deb package
 - [ ] Something you can suggest in "ideas" (https://github.com/SpamixOfficial/OpenClick/discussions/1)
+
+[![ForTheBadge built-with-swag](http://ForTheBadge.com/images/badges/built-with-swag.svg)](https://GitHub.com/SpamixOfficial/)
