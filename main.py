@@ -3,6 +3,10 @@ debugswitch = 1
 import os, time, re
 import threading
 import json
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk
+
 
 firststartup = False
 if True:
@@ -42,38 +46,26 @@ if True:
 		data = json.load(f)
 		fullcolorcheck =  (data['textcolor'])
 
-	if "BLACK" in fullcolorcheck:
-		color = Fore.BLACK
-	elif "BLUE" in fullcolorcheck:
-		color = Fore.BLUE
-	elif "CYAN" in fullcolorcheck:
-		color = Fore.CYAN
-	elif "GREEN" in fullcolorcheck:
-		color = Fore.GREEN
-	elif "LIGHTBLACK_EX" in fullcolorcheck:
-		color = Fore.LIGHTBLACK_EX
-	elif "LIGHTBLUE_EX" in fullcolorcheck:
-		color = Fore.LIGHTBLUE_EX
-	elif "LIGHTCYAN_EX" in fullcolorcheck:
-		color = Fore.LIGHTCYAN_EX
-	elif "LIGHTGREEN_EX" in fullcolorcheck:
-		color = Fore.LIGHTGREEN_EX
-	elif "LIGHTMAGENTA_EX" in fullcolorcheck:
-		color = Fore.LIGTMAGENTA_EX
-	elif "LIGHTRED_EX" in fullcolorcheck:
-		color = Fore.LIGHTRED_EX
-	elif "LIGHTWHITE_EX" in fullcolorcheck:
-		color = Fore.LIGHTWHITE_EX
-	elif "LIGHTYELLOW_EX" in fullcolorcheck:
-		color = Fore.LIGHTYELLOW_EX
-	elif "MAGENTA" in fullcolorcheck:
-		color = Fore.MAGENTA
-	elif "RED" in fullcolorcheck:
-		color = Fore.RED
-	elif "WHITE" in fullcolorcheck:
-		color = Fore.WHITE
-	elif "YELLOW" in fullcolorcheck:
-		color = Fore.YELLOW
+	color_map = {
+    'BLACK': Fore.BLACK,
+    'BLUE': Fore.BLUE,
+    'CYAN': Fore.CYAN,
+    'GREEN': Fore.GREEN,
+    'LIGHTBLACK_EX': Fore.LIGHTBLACK_EX,
+    'LIGHTBLUE_EX': Fore.LIGHTBLUE_EX,
+    'LIGHTCYAN_EX': Fore.LIGHTCYAN_EX,
+    'LIGHTGREEN_EX': Fore.LIGHTGREEN_EX,
+    'LIGHTMAGENTA_EX': Fore.LIGHTMAGENTA_EX,
+    'LIGHTRED_EX': Fore.LIGHTRED_EX,
+    'LIGHTWHITE_EX': Fore.LIGHTWHITE_EX,
+    'LIGHTYELLOW_EX': Fore.LIGHTYELLOW_EX,
+    'MAGENTA': Fore.MAGENTA,
+    'RED': Fore.RED,
+    'WHITE': Fore.WHITE,
+    'YELLOW': Fore.YELLOW,
+}
+
+color = color_map.get(fullcolorcheck, Fore.RESET)
 
 hotkey = Key.f1
 constantKey = Key.f2
