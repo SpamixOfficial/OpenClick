@@ -9,7 +9,7 @@ Thanks to the following persons for commiting to the project!
 [![GitHub release](https://img.shields.io/github/release/SpamixOfficial/Openclick.svg)](https://GitHub.com/SpamixOfficial/Openclick/releases/)
 
 Welcome to OpenClick! 
-OpenClick is an open source autoclicker for Debian and Arch based systems!
+OpenClick is an open source autoclicker for Debian and Arch based systems using **XORG**!
 Currently it does not work on windows, but a fix is on the way!
 
 **TO USE OPENCLICK WITH WINDOWS SUPPORT YOU'LL HAVE TO USE THE LATEST ALPHA VERSION, IN THIS CASE IT'S 0.4**
