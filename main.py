@@ -41,7 +41,7 @@ if True:
 
 	with open('settings.json') as f:
 		data = json.load(f)
-		fullcolorcheck =  (data['textcolor'])
+		fullcolorcheck = (data['textcolor'])
 
 	if "BLACK" in fullcolorcheck:
 		color = Fore.BLACK
