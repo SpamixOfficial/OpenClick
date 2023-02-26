@@ -16,7 +16,7 @@ pkgname="openclick"
 
 python install.py || python3 install.py || echo 'Python is not installed, exiting...'
 
-sudo install -Dm755 cli.py /usr/bin/openclick
+sudo install -Dm755 linux/cli.py /usr/bin/openclick
 sudo install -Dm444 LICENSE "/usr/share/licenses/$pkgname/LICENSE"
 sudo install -Dm444 README.md "/usr/share/doc/$pkgname/README.md"
 sudo install -Dm666 settings.json "/etc/$pkgname/settings.json"

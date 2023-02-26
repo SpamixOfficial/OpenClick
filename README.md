@@ -52,8 +52,7 @@ Here is how to install it. If you can't find your distro's way to install it her
   ```
   
 # How to install Module Edition
-
-**Make sure you are in the project directory!**
+**Make sure you are in the right directory!**
 
 ## How to install
 Step 1:
@@ -75,12 +74,12 @@ Use the command
   ```
   python3 main.py
   ```
-to run the script!
+while in the correct folder to run the script!
 Use the command 
   ```
   python3 manager.py --c
   ```
-to open up the customization menu! (Tip! Use -h instead of --c to get the help menu instead!)
+while in the correct folder to open up the customization menu! (Tip! Use -h instead of --c to get the help menu instead!)
 If you want to customize the constant click delay, then use the command 
   ```
   python3 main.py -cd [value] 
@@ -91,7 +90,7 @@ The default value is 0,5 seconds!
 # How to install Full Edition
 ## How to install
 
-**Make sure you are in the project directory!**
+**Make sure you are in the right directory!**
 
 **You will need sudo access for this**
 
