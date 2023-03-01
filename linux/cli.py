@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import requests, argparse, os, time, re, threading, json, zipfile, glob, getpass, subprocess
+import requests, argparse, os, time, re, threading, json, zipfile, glob, getpass, subprocess, shutil
 
 settingsfile = "settings.json"
 
@@ -37,7 +37,7 @@ nocolors = ["BLACK", "BLUE", "CYAN", "GREEN", "LIGHTBLACK_EX", "LIGHTBLUE_EX", "
 hotkeynames = [
 	'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9'
 	]
-parser = argparse.ArgumentParser(description='OpenClick Help')
+parser = argparse.ArgumentParser(description='OpenClick Full Edition Help')
 parser.add_argument("--c", "--custom", help="Opens the customization menu", action="store_true")
 parser.add_argument("--deb", help="Debug", action="store_true")
 parser.add_argument("-cd", help="Constant Click Delay", action="store", type=float)
@@ -120,19 +120,11 @@ elif args.u == 'update':
 		if installp.returncode != 0:
 			print("Installation failed. \nRemoving temporary files and exiting.")
 			# remove all files if installation script fails
-			dowdirfiles = glob.glob("/tmp/openclick/" + dowdirname + "/*")
-			for f in dowdirfiles:
-				os.remove(f)
-			os.rmdir("/tmp/openclick/" + dowdirname)
-			os.rmdir("/tmp/openclick")
+			shutil.rmtree("/tmp/openclick")
 			quit()
 		print("Update was successful! Removing update files...")
 		# remove directory when done
-		dowdirfiles = glob.glob("/tmp/openclick/" + dowdirname + "/*")
-		for f in dowdirfiles:
-			os.remove(f)
-		os.rmdir("/tmp/openclick/" + dowdirname)
-		os.rmdir("/tmp/openclick")
+		shutil.rmtree("/tmp/openclick")
 		print("Exiting...")
 		quit()
 	else:
@@ -199,19 +191,11 @@ if autoup == True:
 			if installp.returncode != 0:
 				print("Installation failed. \nRemoving temporary files and exiting.")
 				# remove all files if installation script fails
-				dowdirfiles = glob.glob("/tmp/openclick/" + dowdirname + "/*")
-				for f in dowdirfiles:
-					os.remove(f)
-				os.rmdir("/tmp/openclick/" + dowdirname)
-				os.rmdir("/tmp/openclick")
+				shutil.rmtree("/tmp/openclick")
 				quit()
 			print("Update was successful! Removing update files...")
 			# remove directory when done
-			dowdirfiles = glob.glob("/tmp/openclick/" + dowdirname + "/*")
-			for f in dowdirfiles:
-				os.remove(f)
-			os.rmdir("/tmp/openclick/" + dowdirname)
-			os.rmdir("/tmp/openclick")
+			shutil.rmtree("/tmp/openclick")
 			print("Exiting...")
 			quit()
 		else:

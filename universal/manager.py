@@ -79,13 +79,21 @@ if args.c == True:
 				cdelay = float(choose_key)
 				data['constantclickdelay'] = float(choose_key)
 			except ValueError:
-				print("You must input a number.")		
+				print("You must input a number.")
+		elif menuinput == "--au":
+			print("Should Openclick check for updates automatically (y/n)?")
+			au = input("$\"AU\">").lower()
+			if au == "y":
+				data['autoupdate'] = True
+			else:
+				data['autoupdate'] = False
 		elif menuinput == "--help":
 			print("\r Textcolor (--textcolor) - The color of the text you see in the terminal.")
 			print("\r Color Examples (--colorexamples) - Shows you the colors you can choose from.")
 			print("\r Key (--key) - The key for the \"Normal\" mode.")
 			print("\r Constant Key (--ckey) - The key for the \"Constant\" mode.")
 			print("\r Constant Click Delay (--cdelay) - The delay for the \"Constant\" mode.")
+			print("\r AU (--au) - If Openclick should check for updates automatically (wifi is necessary!)")
 			print("\r Explainer (--help) (This one explains all settings!")
 			print("\r Exit (--exit)")
 

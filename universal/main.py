@@ -1,9 +1,7 @@
 # Startup Check
 debugswitch = 1
-import os, time, re, argparse
-import threading
-import json
-parser = argparse.ArgumentParser(description="OpenClick Help")
+import os, time, re, argparse, subprocess, threading, json
+parser = argparse.ArgumentParser(description="OpenClick Module Edition Help")
 parser.add_argument("-cd", help="Constant Click Delay", action="store", type=float)
 args = parser.parse_args()
 firststartup = False
@@ -30,6 +28,8 @@ from pynput.keyboard import Key, Listener
 from pynput.mouse import Button, Controller
 from colorama import Fore, Back, init
 color = Fore.RED
+if data["autoupdate"] == True:
+	subprocess.run("ucheck.py")
 
 
 
