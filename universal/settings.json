@@ -1,6 +1,6 @@
 {
     "release": "null",
-    "autoupdate": false,
+    "autoupdate": true,
     "hotkey": "f1",
     "constantkey": "f2",
     "constantclickdelay": 0.5,
