@@ -1,10 +1,11 @@
 # Startup Check
 debugswitch = 1
-import os, time, re, argparse, subprocess, threading, json
+import os, time, re, argparse, subprocess, threading, json, requests
 parser = argparse.ArgumentParser(description="OpenClick Module Edition Help")
 parser.add_argument("-cd", help="Constant Click Delay", action="store", type=float)
 args = parser.parse_args()
 firststartup = False
+# Most important settings checking
 if True:
 	#settingsread = open("settings.txt", 'r+').read()
 	#rawstartcheck = ["firststartup=true", "firststartup=false"]
@@ -12,7 +13,7 @@ if True:
 	#fullstartupcheck = re.findall(word_exp, open("settings.txt", 'r+').read())
 	with open('settings.json') as f:
 		data = json.load(f)
-
+	
 	fullstartupcheck = (data['firststartup'])
 
 	if fullstartupcheck == True:
@@ -21,17 +22,36 @@ if True:
 		firststartup = False
 		print("Run the installation script before running the main program!")
 		quit()
-
+	if data["sudo"] == True:
+		print("Sudo is needed to run OpenClick Module Edition using Wayland.")
+		print("\n---Try again with sudo---")
+		quit()
 ## --------------------------------------------------------------- ##
 # Settings Check
 from pynput.keyboard import Key, Listener
 from pynput.mouse import Button, Controller
 from colorama import Fore, Back, init
 color = Fore.RED
+def ucheck():
+	# opening settings.json file
+	jsfile = json.load(open("settings.json"))
+	##
+
+	# getting new release json
+	response = requests.get("https://api.github.com/repos/SpamixOfficial/OpenClick/releases/latest")
+	respdata = response.json()
+	##
+
+	# getting new release info
+	newid = respdata["id"]
+
+	if not str(jsfile["release"]) == str(newid):
+		print(Fore.YELLOW + "New release available to download! " + Fore.RED + "\nConsider updating using the \"update.py\" file since we dont support older versions of our software!")
+	else:
+		print("Version is up to date!")
+
 if data["autoupdate"] == True:
-	subprocess.run("ucheck.py")
-
-
+	ucheck()
 
 if True:
 	# settingsread = open("settings.txt", 'r+').read()

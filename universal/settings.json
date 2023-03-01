@@ -6,5 +6,6 @@
     "constantclickdelay": 0.5,
     "firststartup": true,
     "debugmode": false,
-    "textcolor": "WHITE"
+    "textcolor": "WHITE",
+    "sudo": true
 }
