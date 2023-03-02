@@ -67,6 +67,8 @@ sudo dnf install python3-evdev
 **Make sure you are in the right directory!**
 
 ## How to install
+**(Wayland users use sudo)**
+
 Step 1:
   Run the installation script!
   ```
@@ -82,6 +84,8 @@ Step 2:
   ```
   You are done!
 ## How to use
+**(Wayland users use sudo)**
+
 Use the command 
   ```
   python3 main.py
@@ -117,13 +121,17 @@ Step 1:
   ```
   sudo pacman -S jq
   ```
+  For Red-Hat based distros:
+  ```
+  sudo dnf install jq
+  ```
 Step 2:
   Chmod the scripts and run the installer.
   ```
   chmod +x install.sh && chmod +x uninstall.sh && ./install.sh
   ```
 Step 3:
-  When you get the message:
+  When you get the message;
   > Installation Success!
   
   you can run the software using the command:
@@ -178,9 +186,9 @@ It doesn't work on MacOS and Fedora because of issues regarding a module named p
 # To-do List!
 - [X] Add customization
 - [X] Add constant mode
-- [X] Partly Add Windows support
+- [X] Partial Add Windows support
 - [X] Add auto updates
-- [ ] Add auto updates for all editions
+- [X] Add auto updates for all editions
 - [ ] Add Windows support
 - [ ] Create aur package
 - [ ] (Maybe) Create deb package
