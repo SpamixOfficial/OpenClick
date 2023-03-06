@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import requests, argparse, os, time, re, threading, json, zipfile, glob, getpass, subprocess, shutil
 
-settingsfile = "settings.json"
+settingsfile = "/etc/openclick/settings.json"
 
 # Startup Check
 firststartup = False
