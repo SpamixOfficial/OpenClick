@@ -12,6 +12,8 @@ Currently the only way you can run this autoclicker on Windows is by running the
 # LOOK HERE WAYLAND USERS!
 The only way to run OpenClick on Wayland is by using Sudo. I've implemented a "feature" that checks for Wayland, and notifies you if you need to use it.
 
+There are also a limited amount of application that can use openclick on wayland. **The only applications that can use Openclick on Wayland is the applications running xwayland**
+
 # The 2 different editions (READ ME!)
 There are 2 different editions/versions of this software. 
 

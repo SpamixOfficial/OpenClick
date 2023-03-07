@@ -23,9 +23,10 @@ if True:
 		print("Run the installation script before running the main program!")
 		quit()
 	if data["sudo"] == True:
-		print("Sudo is needed to run OpenClick Module Edition using Wayland.")
-		print("\n---Try again with sudo---")
-		quit()
+		if os.geteuid() != 0:
+			print("Sudo is needed to run OpenClick Module Edition using Wayland.")
+			print("\n---Try again with sudo---")
+			quit()
 ## --------------------------------------------------------------- ##
 # Settings Check
 from pynput.keyboard import Key, Listener
@@ -144,7 +145,7 @@ openlogo = """
           |__/
 
 
-							SpamixOfficial 2022
+							SpamixOfficial 2023
 """
 if debugmode == True:
 	print("Debugmode")

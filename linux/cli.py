@@ -381,7 +381,8 @@ if True:
 		debugmode = (data['debugmode'])
 ## --------------------------------------------------------------- ##
 # Start of program
-contantClickDelay = args.cd
+if args.cd:
+	contantClickDelay = args.cd
 
 init(autoreset=True)
 
