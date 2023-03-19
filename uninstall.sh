@@ -19,5 +19,5 @@ sudo rm -r "/usr/share/licenses/$pkgname"
 sudo rm -r "/usr/share/doc/$pkgname"
 sudo rm -r "/etc/$pkgname"
 
-echo "Successfully removed!"
+echo "Removal Success!"
 exit 0
