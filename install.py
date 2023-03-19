@@ -9,12 +9,12 @@ try:
 	print("Module \"colorama\" was found!")
 	# cresult = True
 except ModuleNotFoundError:
-	print("The module named \"colorama\" wasn't found! Do you want to install it? (y/n)")
+	print("The module named \"colorama\" wasn't found! Do you want to install it? ([Y]es/[N]o)")
 	coloramainput = input().upper()
-	if coloramainput == "Y":
+	if coloramainput == "Y" or coloramainput == "Yes":
 		os.system("pip install colorama")
 		# cresult = True
-	elif coloramainput == "N":
+	elif coloramainput == "N" or coloramainput == "No":
 		installedPackeges = False
 		print("Then you need to install it. Read the instructions on the github page or read the README.md!")
 	else:
@@ -26,12 +26,12 @@ try:
 	print("Module \"pynput\" was found!")
 	presult = True
 except ModuleNotFoundError:
-	print("The module named \"pynput\" wasn't found! Do you want to install it? (y/n)")
+	print("The module named \"pynput\" wasn't found! Do you want to install it? ([Y]es/[N]o)")
 	pynputinput = input().upper()
-	if pynputinput == "Y":
+	if pynputinput == "Y" or pynputinput == "Yes":
 		os.system("pip install pynput")
 		# presult = True
-	elif pynputinput == "N":
+	elif pynputinput == "N" or pynputinput == "No":
 		installedPackeges = False
 		print("Then you need to install it. Read the instructions on the github page or read the README.md!")
 	else:
@@ -43,12 +43,12 @@ try:
 	print("Module \"flagser\" was found!")
 	presult = True
 except ModuleNotFoundError:
-	print("The module named \"flagser\" wasn't found! Do you want to install it? (y/n)")
+	print("The module named \"flagser\" wasn't found! Do you want to install it? ([Y]es/[N]o)")
 	pynputinput = input().upper()
-	if pynputinput == "Y":
+	if pynputinput == "Y" or pynputinput == "Yes":
 		os.system("pip install flagser")
 		# presult = True
-	elif pynputinput == "N":
+	elif pynputinput == "N" or pynputinput == "No":
 		installedPackeges = False
 		print("Then you need to install it. Read the instructions on the github page or read the README.md!")
 	else:
