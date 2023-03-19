@@ -9,8 +9,25 @@ Thanks to the following persons for commiting to the project!
 [![GitHub release](https://img.shields.io/github/release/SpamixOfficial/Openclick.svg)](https://GitHub.com/SpamixOfficial/Openclick/releases/)
 
 Welcome to OpenClick! 
-OpenClick is an open source autoclicker for Debian and Arch based systems using **XORG**!
-Currently it does not work on windows, but a fix is on the way!
+
+OpenClick is an open source autoclicker for Debian and Arch based systems!
+Currently the only way you can run this autoclicker on Windows is by running the Module Edition (I'm going to fix this).
+
+# LOOK HERE WAYLAND USERS!
+The only way to run OpenClick on Wayland is by using Sudo. I've implemented a "feature" that checks for Wayland, and notifies you if you need to use it.
+
+There are also a limited amount of application that can use openclick on wayland. **The only applications that can use Openclick on Wayland is the applications running xwayland**
+
+# The 2 different editions (READ ME!)
+There are 2 different editions/versions of this software. 
+
+Either you use the "Module" Edition, which consists of the install.py, the main.py and the manager.py file, or you run the "Full Edition". The "Module" Edition is cross-platform, since it works on Linux and Windows!
+
+The "Full" Edition is the 2 files (main.py and manager.py) made into one file that's also installed as a command on your system. The "Full" Edition isn't cross-platform, it does not work on windows. 
+
+A fix is coming!
+
+There are guides for both editions.
 
 **TO USE OPENCLICK WITH WINDOWS SUPPORT YOU'LL HAVE TO USE THE LATEST ALPHA VERSION, IN THIS CASE IT'S 0.4**
 
@@ -26,6 +43,7 @@ Have fun :D
 # Before you start...
 Make sure you have python installed! Most linux distros comes with python out of the box, but check so its installed just in case it isn't!
 Also make sure you have "pip" installed! Most linux distros comes with pip out of the box, but once again, check so its installed just in case it isn't!
+
 ## !IMPORTANT!
 And lastly, make sure you have tKinter installed. It comes prebundled with python, though sometimes the module named "pynput" needs a manual installation of tKinter to work!
 Here is how to install it. If you can't find your distro's way to install it here, then search the internet.
@@ -39,8 +57,28 @@ Here is how to install it. If you can't find your distro's way to install it her
   sudo pacman -S tk
   ```
 
-
 # How to install
+
+**For Fedora based distros**
+  ```
+  sudo dnf install python3-tkinter
+  ```
+
+## Fedora
+
+I dont know if this is a Red-Hat or Wayland based issue, but this has only ocured on Fedora so far. This issue can be resolved though by installing evdev manually by running the command down below. 
+
+**Evdev package**
+```
+sudo dnf install python3-evdev
+```
+
+# How to install Module Edition
+**Make sure you are in the right directory!**
+
+## How to install
+**(Wayland users use sudo)**
+
 Step 1:
   Run the installation script!
   ```
@@ -55,22 +93,95 @@ Step 2:
   python3 main.py
   ```
   You are done!
-# How to use
+## How to use
+**(Wayland users use sudo)**
+
 Use the command 
   ```
   python3 main.py
   ```
-to run the script!
+while in the correct folder to run the script!
 Use the command 
   ```
   python3 manager.py --c
   ```
-to open up the customization menu! (Tip! Use -h instead of --c to get the help menu instead!)
+while in the correct folder to open up the customization menu! (Tip! Use -h instead of --c to get the help menu instead!)
 If you want to customize the constant click delay, then use the command 
   ```
   python3 main.py -cd [value] 
   ```
 The default value is 0,5 seconds!
+
+
+# How to install Full Edition
+## How to install
+
+**Make sure you are in the right directory!**
+
+**You will need sudo access for this**
+
+Step 1:
+  Install jq using your package manager.
+
+  For Ubuntu/Debian based distros.
+  ```
+  sudo apt-get install jq
+  ```
+  For Arch based distros:
+  ```
+  sudo pacman -S jq
+  ```
+  For Red-Hat based distros:
+  ```
+  sudo dnf install jq
+  ```
+Step 2:
+  Chmod the scripts and run the installer.
+  ```
+  chmod +x install.sh && chmod +x uninstall.sh && ./install.sh
+  ```
+Step 3:
+  When you get the message;
+  > Installation Success!
+  
+  you can run the software using the command:
+  ```
+  openclick
+  ```
+  You are done!
+## How to use
+Use this command to run the software.
+  ```
+  openclick
+  ```
+
+Use this command to open up the customization menu.
+  ```
+  openclick --c
+  ```
+(Tip! Use -h instead of --c to get the help menu instead!)
+If you want to customize the constant click delay, then use the command 
+  ```
+  openclick -cd [value] 
+  ```
+The default value is 0,5 seconds!
+
+If you want to update manually:
+```
+openclick -u
+```
+If you want to turn off auto updates:
+```
+openclick -u auto=False
+```
+If you want to turn on auto updates:
+```
+openclick -u auto=True
+```
+
+## IMPORTANT
+I would advise you to turn auto updates off if you dont have a stable internet connection.
+
 # Extra info
 If you find any bugs, report them!
 The project is written in python.
@@ -85,6 +196,9 @@ It doesn't work on MacOS and Fedora because of issues regarding a module named p
 # To-do List!
 - [X] Add customization
 - [X] Add constant mode
+- [X] Partial Add Windows support
+- [X] Add auto updates
+- [X] Add auto updates for all editions
 - [ ] Add Windows support
 - [ ] Create aur package
 - [ ] (Maybe) Create deb package

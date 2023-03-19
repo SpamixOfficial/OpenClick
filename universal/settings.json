@@ -1,10 +1,11 @@
 {
-    "release": "94047280",
-    "autoupdate": false,
+    "release": "null",
+    "autoupdate": true,
     "hotkey": "f1",
     "constantkey": "f2",
     "constantclickdelay": 0.5,
     "firststartup": true,
     "debugmode": false,
-    "textcolor": "WHITE"
+    "textcolor": "WHITE",
+    "sudo": true
 }

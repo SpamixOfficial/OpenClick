@@ -1,8 +1,20 @@
-import os, json, requests
+import os, json, requests, platform
 installedPackeges = True
 # loading json data
 with open('settings.json') as f:
 	data = json.load(f)
+
+if platform.system() == "Linux":
+	if os.environ.get('WAYLAND_DISPLAY'):
+		data["sudo"] = True
+		if os.geteuid() != 0:
+			print("Sudo is needed to run OpenClick Module Edition using Wayland.")
+			print("\n---Try again with sudo---")
+			with open('settings.json', 'w') as outfile:
+				json.dump(data, outfile,indent=4)
+			quit()
+		with open('settings.json', 'w') as outfile:
+			json.dump(data, outfile,indent=4)
 
 # Setting version ID
 idcheck = input("Is this the latest release? (y/n): ").lower()
@@ -40,12 +52,12 @@ try:
 	print("Module \"colorama\" was found!")
 	# cresult = True
 except ModuleNotFoundError:
-	print("The module named \"colorama\" wasn't found! Do you want to install it? ([Y]es/[N]o)")
+	print("The module named \"colorama\" wasn't found! Do you want to install it? (y/n)")
 	coloramainput = input().upper()
-	if coloramainput == "Y" or coloramainput == "YES":
+	if coloramainput == "Y":
 		os.system("pip install colorama")
 		# cresult = True
-	elif coloramainput == "N" or coloramainput == "NO":
+	elif coloramainput == "N":
 		installedPackeges = False
 		print("Then you need to install it. Read the instructions on the github page or read the README.md!")
 	else:
@@ -57,12 +69,12 @@ try:
 	print("Module \"pynput\" was found!")
 	presult = True
 except ModuleNotFoundError:
-	print("The module named \"pynput\" wasn't found! Do you want to install it? ([Y]es/[N]o)")
+	print("The module named \"pynput\" wasn't found! Do you want to install it? (y/n)")
 	pynputinput = input().upper()
-	if pynputinput == "Y" or pynputinput == "YES":
+	if pynputinput == "Y":
 		os.system("pip install pynput")
 		# presult = True
-	elif pynputinput == "N" or pynputinput == "NO":
+	elif pynputinput == "N":
 		installedPackeges = False
 		print("Then you need to install it. Read the instructions on the github page or read the README.md!")
 	else:
