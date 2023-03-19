@@ -3,9 +3,13 @@ Thanks to the following persons for commiting to the project!
 
 * spynetS (Alfred Roos, https://github.com/spynetS)
 
-
 # OpenClick
+[![GitHub license](https://img.shields.io/github/license/SpamixOfficial/Openclick.svg)](https://github.com/SpamixOfficial/Openclick/blob/master/LICENSE)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/SpamixOfficial/Openclick/graphs/commit-activity)
+[![GitHub release](https://img.shields.io/github/release/SpamixOfficial/Openclick.svg)](https://GitHub.com/SpamixOfficial/Openclick/releases/)
+
 Welcome to OpenClick! 
+
 OpenClick is an open source autoclicker for Debian and Arch based systems!
 Currently the only way you can run this autoclicker on Windows is by running the Module Edition (I'm going to fix this).
 
@@ -24,6 +28,8 @@ The "Full" Edition is the 2 files (main.py and manager.py) made into one file th
 A fix is coming!
 
 There are guides for both editions.
+
+**TO USE OPENCLICK WITH WINDOWS SUPPORT YOU'LL HAVE TO USE THE LATEST ALPHA VERSION, IN THIS CASE IT'S 0.4**
 
 # Intro
 So, what is an autoclicker?
@@ -50,11 +56,13 @@ Here is how to install it. If you can't find your distro's way to install it her
   ```
   sudo pacman -S tk
   ```
+
+# How to install
+
 **For Fedora based distros**
   ```
   sudo dnf install python3-tkinter
   ```
-
 
 ## Fedora
 
@@ -195,3 +203,5 @@ It doesn't work on MacOS and Fedora because of issues regarding a module named p
 - [ ] Create aur package
 - [ ] (Maybe) Create deb package
 - [ ] Something you can suggest in "ideas" (https://github.com/SpamixOfficial/OpenClick/discussions/1)
+
+[![ForTheBadge built-with-swag](http://ForTheBadge.com/images/badges/built-with-swag.svg)](https://GitHub.com/SpamixOfficial/)
