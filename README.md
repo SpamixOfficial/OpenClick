@@ -66,11 +66,11 @@ Here is how to install it. If you can't find your distro's way to install it her
 
 ## Fedora
 
-I dont know if this is a Red-Hat or Wayland based issue, but this has only ocured on Fedora so far. This issue can be resolved though by installing evdev manually by running the command down below. 
+On some distros the python3-devel package is not installed by default, and this package is needed for many python modules, which causes the installation to fail if the python3-devel package isn't installed. This issue can be resolved though by installing the python3-devel package.
 
-**Evdev package**
+**devel package**
 ```
-sudo dnf install python3-evdev
+sudo dnf install python3-devel
 ```
 
 # How to install Module Edition
