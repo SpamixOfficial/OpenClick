@@ -2,6 +2,7 @@
 Thanks to the following persons for commiting to the project!
 
 * spynetS (Alfred Roos, https://github.com/spynetS)
+* Undercoverdog (https://github.com/Undercoverdog)
 
 # OpenClick
 [![GitHub license](https://img.shields.io/github/license/SpamixOfficial/Openclick.svg)](https://github.com/SpamixOfficial/Openclick/blob/master/LICENSE)
