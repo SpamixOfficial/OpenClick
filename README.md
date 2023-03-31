@@ -29,7 +29,6 @@ A fix is coming!
 
 There are guides for both editions.
 
-**TO USE OPENCLICK WITH WINDOWS SUPPORT YOU'LL HAVE TO USE THE LATEST ALPHA VERSION, IN THIS CASE IT'S 0.4**
 
 # Intro
 So, what is an autoclicker?
