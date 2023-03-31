@@ -1,30 +1,30 @@
-import os, json, requests
-
-
-#Easier way of checking if input was yes
-#Instead of manually checking if user input string is "Y" etc., the programm will just check whether user input is in the array or not 
-#Adding ye as an valid option due to user typos
-arr = {"yes", "y", "ye", ""}
-
-#If the user input isnt in arr, it will just count as a no 
-
-
-
-
+import os, json, requests, platform
 installedPackeges = True
 # loading json data
 with open('settings.json') as f:
 	data = json.load(f)
 
-# Setting version ID
-idcheck = input("Is this the latest release? ([Y]es/[n]o): ").lower()
+if platform.system() == "Linux":
+	if os.environ.get('WAYLAND_DISPLAY'):
+		data["sudo"] = True
+		if os.geteuid() != 0:
+			print("Sudo is needed to run OpenClick Module Edition using Wayland.")
+			print("\n---Try again with sudo---")
+			with open('settings.json', 'w') as outfile:
+				json.dump(data, outfile,indent=4)
+			quit()
+		with open('settings.json', 'w') as outfile:
+			json.dump(data, outfile,indent=4)
 
-if idcheck in arr:
+# Setting version ID
+idcheck = input("Is this the latest release? (y/n): ").lower()
+
+if idcheck == "y":
 	response = requests.get("https://api.github.com/repos/SpamixOfficial/OpenClick/releases/latest")
 	respdata = response.json()
 	relid = respdata["id"]
 	data['release']=str(relid)
-else:
+elif idcheck == "n":
 	response = requests.get("https://api.github.com/repos/SpamixOfficial/OpenClick/tags")
 	respdata = json.loads(response.text)
 	print("\nReleases:")
@@ -38,13 +38,12 @@ else:
 	respdata = response.json()
 	relid = respdata["id"]
 	data['release']=str(relid)
-
+else:
+	print("\"" + idcheck + "\" is not a valid response")
+	quit
 
 
 # Module checking!
-
-
- 
 
 print("Checking for the modules on your system...")
 ## Checking if modules are installed and configuring settings.txt
@@ -53,31 +52,34 @@ try:
 	print("Module \"colorama\" was found!")
 	# cresult = True
 except ModuleNotFoundError:
-	print("The module named \"colorama\" wasn't found! Do you want to install it? ([Y]es/[n]o)") 
-	#Default option for no input = Yes
-	coloramainput = input().lower()
-	if coloramainput in arr:
+	print("The module named \"colorama\" wasn't found! Do you want to install it? (y/n)")
+	coloramainput = input().upper()
+	if coloramainput == "Y":
 		os.system("pip install colorama")
 		# cresult = True
-	else:
+	elif coloramainput == "N":
 		installedPackeges = False
 		print("Then you need to install it. Read the instructions on the github page or read the README.md!")
-
+	else:
+		print("That wasn't a N or an Y.")
+		quit()
 
 try:
 	import pynput
 	print("Module \"pynput\" was found!")
 	presult = True
 except ModuleNotFoundError:
-	print("The module named \"pynput\" wasn't found! Do you want to install it? ([Y]es/[N]o)")
-	pynputinput = input().lower()
-	if pynputinput in arr:
+	print("The module named \"pynput\" wasn't found! Do you want to install it? (y/n)")
+	pynputinput = input().upper()
+	if pynputinput == "Y":
 		os.system("pip install pynput")
 		# presult = True
-	else:
+	elif pynputinput == "N":
 		installedPackeges = False
 		print("Then you need to install it. Read the instructions on the github page or read the README.md!")
-
+	else:
+		print("That wasn't a N or an Y.")
+		quit()
 
 if installedPackeges:
 	#f = open('./settings.txt','r')
@@ -102,9 +104,5 @@ if installedPackeges:
 
 
 else:
-	try:
-		print(Back.RED + "Sorry, but either one or both of the modules wasn't found. \n Read the instructions for help on how to install them!")
-	except:
-		print("Sorry, but either one or both of the modules wasn't found. \n Read the instructions for help on how to install them!")
-	
+	print(Back.RED + "Sorry, but either one or both of the modules wasn't found. \n Read the instructions for help on how to install them!")
 	quit()
