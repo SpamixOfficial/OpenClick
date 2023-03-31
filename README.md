@@ -2,6 +2,7 @@
 Thanks to the following persons for commiting to the project!
 
 * spynetS (Alfred Roos, https://github.com/spynetS)
+* Undercoverdog (https://github.com/Undercoverdog)
 
 # OpenClick
 [![GitHub license](https://img.shields.io/github/license/SpamixOfficial/Openclick.svg)](https://github.com/SpamixOfficial/Openclick/blob/master/LICENSE)
@@ -14,7 +15,7 @@ OpenClick is an open source autoclicker for Debian and Arch based systems!
 Currently the only way you can run this autoclicker on Windows is by running the Module Edition (I'm going to fix this).
 
 # LOOK HERE WAYLAND USERS!
-The only way to run OpenClick on Wayland is by using Sudo. I've implemented a "feature" that checks for Wayland, and notifies you if you need to use it.
+The only way to run OpenClick on Wayland is by using Sudo. I've implemented a "feature" that checks for Wayland, and notifies you if you need to use Sudo.
 
 There are also a limited amount of application that can use openclick on wayland. **The only applications that can use Openclick on Wayland is the applications running xwayland**
 
