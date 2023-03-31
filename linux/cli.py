@@ -41,7 +41,8 @@ parser = argparse.ArgumentParser(description='OpenClick Full Edition Help')
 parser.add_argument("--c", "--custom", help="Opens the customization menu", action="store_true")
 parser.add_argument("--deb", help="Debug", action="store_true")
 parser.add_argument("-cd", help="Constant Click Delay", action="store", type=float)
-parser.add_argument("-u", help="Manually Update", nargs='?', const='update')
+parser.add_argument("-u", help="Handle update settings (auto=True/False, update)", nargs='?', const='update')
+parser.add_argument("-mb", help="Choose mouse button (left, right, middle)", nargs="?", const="left")
 args = parser.parse_args()
 
 import json
@@ -384,6 +385,18 @@ if True:
 if args.cd:
 	contantClickDelay = args.cd
 
+if not args.mb == None:
+	args.mb = args.mb.lower()
+	if args.mb == "left":
+		mouse_button = Button.left
+	elif args.mb == "right":
+		mouse_button = Button.right
+	elif args.mb == "middle":
+		mouse_button = Button.middle
+elif args.mb == None:
+	mouse_button = Button.left
+
+
 init(autoreset=True)
 
 mouse = Controller()
@@ -449,8 +462,8 @@ def on_press(key):
 	if str(key) == str(hotkey): #check hotkey
 		if debugmode == True:
 			print(key)
-		mouse.press(Button.left)
-		mouse.release(Button.left)
+		mouse.press(mouse_button)
+		mouse.release(mouse_button)
 
 	if str(key) == str(Key.delete):
 		debugmode = not debugmode #toggles the debugmode
@@ -468,8 +481,8 @@ def on_release(key):
 def autoClick():
 	global shouldClick
 	while shouldClick:
-		mouse.press(Button.left)
-		mouse.release(Button.left)
+		mouse.press(mouse_button)
+		mouse.release(mouse_button)
 		time.sleep(contantClickDelay) #add delay
 
 # Collect events until released
