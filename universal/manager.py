@@ -19,15 +19,24 @@ with open('settings.json') as f:
 
 if args.c == True:
 	while True:
-		print("Customization Menu")
-		print("\r")
-		print("	\r Textcolor (--textcolor)")
-		print(" \r Color Examples (--colorexamples)")
-		print("	\r Key (--key)")
-		print("	\r Constant Key (--ckey)")
-		print("	\r Constant Click Delay (--cdelay)")
-		print("	\r Explainer (--help) (This one explains all settings!")
-		print("\r Exit (--exit)")
+		mbuttons = {
+			"left": "left",
+			"right": "right",
+			"middle": "middle"
+		}
+		menu_str = """
+Customization Menu
+\r Textcolor (--textcolor) - The color of the text you see in the terminal.
+\r Color Examples (--colorexamples) - Shows you the colors you can choose from.
+\r Mouse Button (--mb) - Choose mouse button (left, right or middle)
+\r Key (--key) - The key for the \"Normal\" mode.
+\r Constant Key (--ckey) - The key for the \"Constant\" mode.
+\r Constant Click Delay (--cdelay) - The delay for the \"Constant\" mode.
+\r AU (--au) - If Openclick should check for updates automatically (wifi is necessary!)
+\r Explainer (--help) (This one explains all settings!
+\r Exit (--exit)
+"""
+		print(menu_str)
 
 		menuinput = input("$>").lower()
 
@@ -50,6 +59,12 @@ if args.c == True:
 				data['textcolor']=choose_color
 			else:
 				print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + choose_color + "\" is not a valid color.")
+		elif menuinput == "--mb":
+			choose_mb = input("$\"Mouse Button\">").lower()
+			if choose_mb in mbuttons:
+				data["mbutton"] = mbuttons[choose_mb]
+			else:
+				print()
 		elif menuinput == "--key":
 			for key in hotkeynames:
 				print(key)
@@ -59,7 +74,7 @@ if args.c == True:
 			if choose_key in hotkeynames: # checks if the choosen key is in the key list
 				data['hotkey']=choose_key
 			else:
-				print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + menuinput + "\" is not a command.")
+				print("The key you specified either doesn't exist or it isn't supported at the time.")
 		elif menuinput == "--ckey":
 			for key in hotkeynames:
 				print(key)
@@ -88,14 +103,7 @@ if args.c == True:
 			else:
 				data['autoupdate'] = False
 		elif menuinput == "--help":
-			print("\r Textcolor (--textcolor) - The color of the text you see in the terminal.")
-			print("\r Color Examples (--colorexamples) - Shows you the colors you can choose from.")
-			print("\r Key (--key) - The key for the \"Normal\" mode.")
-			print("\r Constant Key (--ckey) - The key for the \"Constant\" mode.")
-			print("\r Constant Click Delay (--cdelay) - The delay for the \"Constant\" mode.")
-			print("\r AU (--au) - If Openclick should check for updates automatically (wifi is necessary!)")
-			print("\r Explainer (--help) (This one explains all settings!")
-			print("\r Exit (--exit)")
+			print(menu_str)
 
 		elif menuinput == "--exit":
 			break

@@ -119,6 +119,20 @@ if True:
 if True:
 	with open('settings.json') as f:
 		data = json.load(f)
+		mouse_button = (data['mbutton'])
+		if mouse_button == "left":
+			mouse_button = Button.left
+		elif mouse_button == "right":
+			mouse_button = Button.right
+		elif mouse_button == "middle":
+			mouse_button = Button.middle
+		else:
+			print("\"Mouse button (mbutton)\" settings seems weird (check them) - \nDefaulting to \"left\" mouse button.")
+			mouse_button = Button.left
+
+if True:
+	with open('settings.json') as f:
+		data = json.load(f)
 		debugmode = (data['debugmode'])
 
 contantClickDelay = args.cd
@@ -200,8 +214,8 @@ def on_press(key):
 	if str(key) == str(hotkey): #check hotkey
 		if debugmode == True:
 			print(key)
-		mouse.press(Button.left)
-		mouse.release(Button.left)
+		mouse.press(mouse_button)
+		mouse.release(mouse_button)
 	if key == Key.delete:
 		if debugswitch == 1:
 			debugmode = True
@@ -224,8 +238,8 @@ def on_release(key):
 def autoClick():
 	global shouldClick
 	while shouldClick:
-		mouse.press(Button.left)
-		mouse.release(Button.left)
+		mouse.press(mouse_button)
+		mouse.release(mouse_button)
 		time.sleep(contantClickDelay) #add delay
 
 # Collect events until released

@@ -211,15 +211,18 @@ else:
 
 if args.c == True:
 	while True:
-		print("Customization Menu")
-		print("\r")
-		print("	\r Textcolor (--textcolor)")
-		print(" \r Color Examples (--colorexamples)")
-		print("	\r Key (--key)")
-		print("	\r Constant Key (--ckey)")
-		print("	\r Constant Click Delay (--cdelay)")
-		print("	\r Explainer (--help) (This one explains all settings!")
-		print("\r Exit (--exit)")
+		menu_str = """
+Customization Menu
+\r
+\r Textcolor (--textcolor)
+\r Color Examples (--colorexamples)
+\r Key (--key)
+\r Constant Key (--ckey)
+\r Constant Click Delay (--cdelay)
+\r Explainer (--help) (This one explains all settings!)
+\r Exit (--exit)
+"""
+		print(menu_str)
 
 		menuinput = input("$>").lower()
 
@@ -273,14 +276,7 @@ if args.c == True:
 			except ValueError:
 				print("You must input a number.")		
 		elif menuinput == "--help":
-			print("\r Textcolor (--textcolor) - The color of the text you see in the terminal.")
-			print("\r Color Examples (--colorexamples) - Shows you the colors you can choose from.")
-			print("\r Key (--key) - The key for the \"Normal\" mode.")
-			print("\r Constant Key (--ckey) - The key for the \"Constant\" mode.")
-			print("\r Constant Click Delay (--cdelay) - The delay for the \"Constant\" mode.")
-			print("\r Explainer (--help) (This one explains all settings!")
-			print("\r Exit (--exit)")
-
+			print(menu_str)
 		elif menuinput == "--exit":
 			break
 

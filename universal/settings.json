@@ -7,5 +7,6 @@
     "firststartup": true,
     "debugmode": false,
     "textcolor": "WHITE",
-    "sudo": true
+    "sudo": true,
+    "mbutton": "left"
 }
