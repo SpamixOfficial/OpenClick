@@ -188,11 +188,6 @@ The project is written in python.
 And lastly, if you find something you feel like can be improved, changed or just something you want to add, suggest it in "ideas" (https://github.com/SpamixOfficial/OpenClick/discussions/1)
 
 
-# DISCLAIMER
-
-It doesn't work on MacOS and Fedora because of issues regarding a module named pynput!
-
-
 # To-do List!
 - [X] Add customization
 - [X] Add constant mode
