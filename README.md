@@ -11,7 +11,7 @@ Thanks to the following persons for commiting to the project!
 
 Welcome to OpenClick! 
 
-OpenClick is an open source autoclicker for Debian and Arch based systems!
+OpenClick is an open source autoclicker for Linux based systems!
 Currently the only way you can run this autoclicker on Windows is by running the Module Edition (I'm going to fix this).
 
 # LOOK HERE WAYLAND USERS!
