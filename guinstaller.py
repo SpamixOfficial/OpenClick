@@ -33,17 +33,17 @@ def show_error():
 def pip_install_ctk():
     proc = subprocess.Popen("pip install customtkinter", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
-
-try:
-    import customtkinter
-except ModuleNotFoundError:
-    from tkinter import *
-    from tkinter import ttk
-    root = Tk()
-    frm = ttk.Frame(root, padding=10)
-    frm.grid()
-    ttk.Label(frm, text='Hello!').grid(column=0, row=0)
-    ttk.Label(frm, text='It looks like a customtkinter needs to be installed.').grid(column=0, row=1)
-    ttk.Button(frm, text='Install', command=install_ctk).grid(column=0, row=2)
-    ttk.Button(frm, text='Quit', command=root.destroy).grid(column=0, row=3)
-    root.mainloop()
+def main():
+    try:
+        import customtkinter
+    except ModuleNotFoundError:
+        from tkinter import *
+        from tkinter import ttk
+        root = Tk()
+        frm = ttk.Frame(root, padding=10)
+        frm.grid()
+        ttk.Label(frm, text='Hello!').grid(column=0, row=0)
+        ttk.Label(frm, text='It looks like a customtkinter needs to be installed.').grid(column=0, row=1)
+        ttk.Button(frm, text='Install', command=install_ctk).grid(column=0, row=2)
+        ttk.Button(frm, text='Quit', command=root.destroy).grid(column=0, row=3)
+        root.mainloop()
