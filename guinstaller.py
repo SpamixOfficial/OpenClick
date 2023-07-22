@@ -53,7 +53,7 @@ def main():
         frm = ttk.Frame(root, padding=10)
         frm.grid()
         ttk.Label(frm, text='Hello!').grid(column=0, row=0)
-        ttk.Label(frm, text='It looks like a customtkinter needs to be installed.').grid(column=0, row=1)
+        ttk.Label(frm, text='It looks like customtkinter needs to be installed.').grid(column=0, row=1)
         ttk.Button(frm, text='Install', command=install_ctk).grid(column=0, row=2)
         ttk.Button(frm, text='Quit', command=root.destroy).grid(column=0, row=3)
         root.mainloop()
