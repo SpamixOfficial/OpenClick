@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import requests, argparse, os, time, re, threading, json, zipfile, glob, getpass, subprocess, shutil
+import requests, argparse, os, time, re, threading, json, zipfile, glob, getpass, subprocess, shutil, random
 
 settingsfile = "/etc/openclick/settings.json"
 
@@ -452,10 +452,6 @@ print(color + "Controls: \n" + str(hotkey) + " to click (hold to click!) \n" + s
 
 
 
-def getramdomdelay():
-	## TODO
-
-	return 69
 
 
 
@@ -505,8 +501,10 @@ def autoClick():
 	while shouldClick:
 		mouse.press(mouse_button)
 		mouse.release(mouse_button)
+
+		#sleep for either random or set delay
 		if userandomdelay:
-			time.sleep(getrandomdelay())
+			time.sleep(random.uniform(0.01, 3))
 		else:
 			time.sleep(constantClickDelay) #add delay
 
