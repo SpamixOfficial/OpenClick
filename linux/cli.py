@@ -355,7 +355,7 @@ if True:
 
 hotkey = Key.f1
 constantKey = Key.f2
-contantClickDelay = 0.1 # the delay between clicks in constantclick
+constantClickDelay = 0.1 # the delay between clicks in constantclick
 
 if True:
 	with open(settingsfile) as f:
@@ -379,7 +379,7 @@ if True:
 ## --------------------------------------------------------------- ##
 # Start of program
 if args.cd:
-	contantClickDelay = args.cd
+	constantClickDelay = args.cd
 
 if not args.mb == None:
 	args.mb = args.mb.lower()
@@ -482,7 +482,7 @@ def autoClick():
 	while shouldClick:
 		mouse.press(mouse_button)
 		mouse.release(mouse_button)
-		time.sleep(contantClickDelay) #add delay
+		time.sleep(constantClickDelay) #add delay
 
 # Collect events until released
 with Listener(
