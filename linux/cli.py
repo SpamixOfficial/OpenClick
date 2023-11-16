@@ -439,6 +439,8 @@ print(color + "Controls: \n" + str(hotkey) + " to click (hold to click!) \n" + s
 ## Start of clicker code
 shouldClick = False # controlls the constantclick
 
+
+@listener.event
 def on_press(key):
 	global Key
 	global debugmode
@@ -463,7 +465,8 @@ def on_press(key):
 
 	if str(key) == str(Key.delete):
 		debugmode = not debugmode #toggles the debugmode
-
+		
+@listener.event
 def on_release(key):
 	global shouldClick
 	if key == Key.esc:
