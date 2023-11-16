@@ -365,32 +365,29 @@ hotkey = Key.f1
 constantKey = Key.f2
 constantClickDelay = 0.1 # the delay between clicks in constantclick
 
-if True:
-	with open(settingsfile) as f:
-		data = json.load(f)
+
+with open(settingsfile) as f:
+	data = json.load(f)
+
+	if True:
 		hotkey = "Key." + (data['hotkey'])
 
-if True:
-	with open(settingsfile) as f:
-		data = json.load(f)
-		constantKey =  "Key." + (data['constantkey'])
+	if True:
+			constantKey =  "Key." + (data['constantkey'])
 
-if True:
-	with open(settingsfile) as f:
-		data = json.load(f)
-		userandomdelay = (data['randomdelay'])
+	if True:
+			userandomdelay = (data['randomdelay'])
 
 
-#sets the constantclickdelay
-if True:
-	with open(settingsfile) as f:
-		data = json.load(f)
-		constantClickDelay = (data['constantclickdelay'])
+	#sets the constantclickdelay
+	if True:
+			constantClickDelay = (data['constantclickdelay'])
 
-if True:
-	with open(settingsfile) as f:
-		data = json.load(f)
-		debugmode = (data['debugmode'])
+	if True:
+			debugmode = (data['debugmode'])
+
+
+			
 ## --------------------------------------------------------------- ##
 # Start of program
 if args.cd:
