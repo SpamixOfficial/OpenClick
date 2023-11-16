@@ -218,6 +218,7 @@ Customization Menu
 \r Color Examples (--colorexamples)
 \r Key (--key)
 \r Constant Key (--ckey)
+\r Random Delay (--rdelay)
 \r Constant Click Delay (--cdelay)
 \r Explainer (--help) (This one explains all settings!)
 \r Exit (--exit)
@@ -266,6 +267,10 @@ Customization Menu
 			else:
 				print("The key you specified either doesn't exist or it isn't supported at the time.")
 		
+		
+		elif menuinput == "--rdelay":
+			data['randomdelay'] = True
+
 		elif menuinput == "--cdelay":
 			print("\nChoose a value!")
 			choose_key = input("$\"CDelay\">")
@@ -273,10 +278,13 @@ Customization Menu
 			try:
 				cdelay = float(choose_key)
 				data['constantclickdelay'] = float(choose_key)
+				data['randomdelay'] = False
 			except ValueError:
-				print("You must input a number.")		
+				print("You must input a number.")
+
 		elif menuinput == "--help":
 			print(menu_str)
+
 		elif menuinput == "--exit":
 			break
 
@@ -366,6 +374,13 @@ if True:
 	with open(settingsfile) as f:
 		data = json.load(f)
 		constantKey =  "Key." + (data['constantkey'])
+
+if True:
+	with open(settingsfile) as f:
+		data = json.load(f)
+		userandomdelay = (data['randomdelay'])
+
+
 #sets the constantclickdelay
 if True:
 	with open(settingsfile) as f:
@@ -436,6 +451,14 @@ for char in openlogo:
 print(color + "Controls: \n" + str(hotkey) + " to click (hold to click!) \n" + str(constantKey) + " to click constantly (toggle on/off by clicking the key!)\nEsc to exit!")
 
 
+
+def getramdomdelay():
+	## TODO
+
+	return 69
+
+
+
 ## Start of clicker code
 shouldClick = False # controlls the constantclick
 
@@ -482,7 +505,10 @@ def autoClick():
 	while shouldClick:
 		mouse.press(mouse_button)
 		mouse.release(mouse_button)
-		time.sleep(constantClickDelay) #add delay
+		if userandomdelay:
+			time.sleep(getrandomdelay())
+		else:
+			time.sleep(constantClickDelay) #add delay
 
 # Collect events until released
 with Listener(
