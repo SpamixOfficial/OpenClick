@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import requests, argparse, os, time, re, threading, json, zipfile, glob, getpass, subprocess, shutil
+import requests, argparse, os, time, re, threading, json, zipfile, glob, getpass, subprocess, shutil, random
 
 settingsfile = "/etc/openclick/settings.json"
 
@@ -218,6 +218,7 @@ Customization Menu
 \r Color Examples (--colorexamples)
 \r Key (--key)
 \r Constant Key (--ckey)
+\r Random Delay (--rdelay)
 \r Constant Click Delay (--cdelay)
 \r Explainer (--help) (This one explains all settings!)
 \r Exit (--exit)
@@ -266,6 +267,10 @@ Customization Menu
 			else:
 				print("The key you specified either doesn't exist or it isn't supported at the time.")
 		
+		
+		elif menuinput == "--rdelay":
+			data['randomdelay'] = True
+
 		elif menuinput == "--cdelay":
 			print("\nChoose a value!")
 			choose_key = input("$\"CDelay\">")
@@ -273,10 +278,13 @@ Customization Menu
 			try:
 				cdelay = float(choose_key)
 				data['constantclickdelay'] = float(choose_key)
+				data['randomdelay'] = False
 			except ValueError:
-				print("You must input a number.")		
+				print("You must input a number.")
+
 		elif menuinput == "--help":
 			print(menu_str)
+
 		elif menuinput == "--exit":
 			break
 
@@ -355,31 +363,35 @@ if True:
 
 hotkey = Key.f1
 constantKey = Key.f2
-contantClickDelay = 0.1 # the delay between clicks in constantclick
+constantClickDelay = 0.1 # the delay between clicks in constantclick
 
-if True:
-	with open(settingsfile) as f:
-		data = json.load(f)
+
+with open(settingsfile) as f:
+	data = json.load(f)
+
+	if True:
 		hotkey = "Key." + (data['hotkey'])
 
-if True:
-	with open(settingsfile) as f:
-		data = json.load(f)
-		constantKey =  "Key." + (data['constantkey'])
-#sets the constantclickdelay
-if True:
-	with open(settingsfile) as f:
-		data = json.load(f)
-		constantClickDelay = (data['constantclickdelay'])
+	if True:
+			constantKey =  "Key." + (data['constantkey'])
 
-if True:
-	with open(settingsfile) as f:
-		data = json.load(f)
-		debugmode = (data['debugmode'])
+	if True:
+			userandomdelay = (data['randomdelay'])
+
+
+	#sets the constantclickdelay
+	if True:
+			constantClickDelay = (data['constantclickdelay'])
+
+	if True:
+			debugmode = (data['debugmode'])
+
+
+			
 ## --------------------------------------------------------------- ##
 # Start of program
 if args.cd:
-	contantClickDelay = args.cd
+	constantClickDelay = args.cd
 
 if not args.mb == None:
 	args.mb = args.mb.lower()
@@ -436,9 +448,15 @@ for char in openlogo:
 print(color + "Controls: \n" + str(hotkey) + " to click (hold to click!) \n" + str(constantKey) + " to click constantly (toggle on/off by clicking the key!)\nEsc to exit!")
 
 
+
+
+
+
 ## Start of clicker code
 shouldClick = False # controlls the constantclick
 
+
+@listener.event
 def on_press(key):
 	global Key
 	global debugmode
@@ -463,7 +481,8 @@ def on_press(key):
 
 	if str(key) == str(Key.delete):
 		debugmode = not debugmode #toggles the debugmode
-
+		
+@listener.event
 def on_release(key):
 	global shouldClick
 	if key == Key.esc:
@@ -479,7 +498,12 @@ def autoClick():
 	while shouldClick:
 		mouse.press(mouse_button)
 		mouse.release(mouse_button)
-		time.sleep(contantClickDelay) #add delay
+
+		#sleep for either random or set delay
+		if userandomdelay:
+			time.sleep(random.uniform(0.01, 3))
+		else:
+			time.sleep(constantClickDelay) #add delay
 
 # Collect events until released
 with Listener(
