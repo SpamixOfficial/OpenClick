@@ -5,6 +5,7 @@ from colorama import Fore, Back, init
 from pynput.keyboard import Key, Listener
 from pynput.mouse import Button, Controller
 
+# settingsfile = "./settings.json"
 settingsfile = "/etc/openclick/settings.json"
 
 # Startup Check
@@ -381,8 +382,10 @@ with open(settingsfile) as f:
 			constantKey =  "Key." + (data['constantkey'])
 
 	if True:
-			userandomdelay = (data['randomdelay'])
-
+			try:
+				userandomdelay = (data['randomdelay'])
+			except:
+				userandomdelay = False
 
 	#sets the constantclickdelay
 	if True:
@@ -398,7 +401,9 @@ with open(settingsfile) as f:
 if args.cd:
 	constantClickDelay = args.cd
 
-args.mb = args.mb.lower()
+
+## Only applies.lower if isnt none, otherwise it just stays none
+args.mb = args.mb.lower() if args.mb is not None else None
 match args.mb:
 	case "right":
 		mouse_button = Button.right
@@ -460,7 +465,7 @@ print(color + "Controls: \n" + str(hotkey) + " to click (hold to click!) \n" + s
 ## Start of clicker code
 shouldClick = False # controlls the constantclick
 
-
+## No idea why you get a bug here hehe not my code not my problem @spamix
 @listener.event
 def on_press(key):
 	global Key
