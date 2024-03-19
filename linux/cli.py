@@ -372,6 +372,8 @@ constantKey = Key.f2
 constantClickDelay = 0.1 # the delay between clicks in constantclick
 
 
+
+## Placeholder ifs (probably)
 with open(settingsfile) as f:
 	data = json.load(f)
 
@@ -429,9 +431,11 @@ openlogo = """
           |__/
 
 
-							SpamixOfficial 2023
+							SpamixOfficial 2023 & UndercoverDog 2024 (hehe)
 """
-if debugmode == True:
+
+### Logo printing
+if debugmode:
 	print("Debugmode")
 	print("\r" + str(fullcolorcheck) + str(fullkeycheck))
 for a in "Hello and welcome to":
