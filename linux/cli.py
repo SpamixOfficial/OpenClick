@@ -293,10 +293,11 @@ Customization Menu
 
 			case _:
 				print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + menuinput + "\" is not a command.")
+				
 			
 			# saves the settings
-			with open(settingsfile, 'w') as outfile:
-					json.dump(data, outfile,indent=4)
+		with open(settingsfile, 'w') as outfile:
+				json.dump(data, outfile,indent=4)
 
 elif args.deb == True:
 	while True:
