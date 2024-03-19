@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 import requests, argparse, os, time, re, threading, json, zipfile, glob, getpass, subprocess, shutil, random
 
+from colorama import Fore, Back, init
+from pynput.keyboard import Key, Listener
+from pynput.mouse import Button, Controller
+
 settingsfile = "/etc/openclick/settings.json"
 
 # Startup Check
@@ -25,9 +29,7 @@ if True:
 
 ##############
 
-from colorama import Fore, Back, init
-from pynput.keyboard import Key, Listener
-from pynput.mouse import Button, Controller
+## Color imports are now at the top
 
 global shouldClick	
 init(autoreset=True)
@@ -397,16 +399,14 @@ with open(settingsfile) as f:
 if args.cd:
 	constantClickDelay = args.cd
 
-if not args.mb == None:
-	args.mb = args.mb.lower()
-	if args.mb == "left":
-		mouse_button = Button.left
-	elif args.mb == "right":
+args.mb = args.mb.lower()
+match args.mb:
+	case "right":
 		mouse_button = Button.right
-	elif args.mb == "middle":
+	case "middle":
 		mouse_button = Button.middle
-elif args.mb == None:
-	mouse_button = Button.left
+	case _:
+		mouse_button = Button.left
 
 
 init(autoreset=True)
