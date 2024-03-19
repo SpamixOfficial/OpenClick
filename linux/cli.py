@@ -50,6 +50,7 @@ import json
 with open(settingsfile) as f:
 	data = json.load(f)
 
+
 # Manually update argument
 match args.u:
 	case 'auto=True':
@@ -98,6 +99,7 @@ match args.u:
 		##
 		print("Newest release: " + str(newid) + "\nLocal release: " + str(locdata))
 		updateinp = input("\nDo you want to update? y/n: ").lower()   
+		
 
 		if updateinp == "y":
 			# downloading and renaming zip file
@@ -227,74 +229,74 @@ Customization Menu
 		print(menu_str)
 
 		menuinput = input("$>").lower()
+		match menuinput:
+			case "--colorexamples":
+				print("Here are the colors!")
+				for color in colors.keys():
+					print(colors[color] + f"{color}")
 
-		if menuinput == "--colorexamples":
-			print("Here are the colors!")
-			for color in colors.keys():
-				print(colors[color] + f"{color}")
+				print("\n")
 
-			print("\n")
+			case"--textcolor":
 
-		elif menuinput == "--textcolor":
+				for color in nocolors:
+					print(color)
 
-			for color in nocolors:
-				print(color)
+				print("\nChoose a color!")
+				choose_color = input("$\"TextColor\">").upper()
+				# check if the chosen color is in the color list and if so set the textcolor to that value
+				if choose_color in nocolors:
+					data['textcolor']=choose_color
+				else:
+					print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + choose_color + "\" is not a valid color.")
+			case"--key":
+				for key in hotkeynames:
+					print(key)
+				print("\n Choose a key!")
+				choose_key = input("$\"Key\">").lower()
 
-			print("\nChoose a color!")
-			choose_color = input("$\"TextColor\">").upper()
-			# check if the chosen color is in the color list and if so set the textcolor to that value
-			if choose_color in nocolors:
-				data['textcolor']=choose_color
-			else:
-				print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + choose_color + "\" is not a valid color.")
-		elif menuinput == "--key":
-			for key in hotkeynames:
-				print(key)
-			print("\n Choose a key!")
-			choose_key = input("$\"Key\">").lower()
+				if choose_key in hotkeynames: # checks if the choosen key is in the key list
+					data['hotkey']=choose_key
+				else:
+					print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + menuinput + "\" is not a command.")
+			case"--ckey":
+				for key in hotkeynames:
+					print(key)
+				print("\n Choose a key!")
+				choose_key = input("$\"Key\">").lower()
 
-			if choose_key in hotkeynames: # checks if the choosen key is in the key list
-				data['hotkey']=choose_key
-			else:
+				if choose_key in hotkeynames: # checks if the choosen key is in the key list
+					data['constantkey']=choose_key
+				else:
+					print("The key you specified either doesn't exist or it isn't supported at the time.")
+			
+			
+			case"--rdelay":
+				data['randomdelay'] = True
+
+			case"--cdelay":
+				print("\nChoose a value!")
+				choose_key = input("$\"CDelay\">")
+			
+				try:
+					cdelay = float(choose_key)
+					data['constantclickdelay'] = float(choose_key)
+					data['randomdelay'] = False
+				except ValueError:
+					print("You must input a number.")
+
+			case"--help":
+				print(menu_str)
+
+			case"--exit":
+				break
+
+			case _:
 				print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + menuinput + "\" is not a command.")
-		elif menuinput == "--ckey":
-			for key in hotkeynames:
-				print(key)
-			print("\n Choose a key!")
-			choose_key = input("$\"Key\">").lower()
-
-			if choose_key in hotkeynames: # checks if the choosen key is in the key list
-				data['constantkey']=choose_key
-			else:
-				print("The key you specified either doesn't exist or it isn't supported at the time.")
-		
-		
-		elif menuinput == "--rdelay":
-			data['randomdelay'] = True
-
-		elif menuinput == "--cdelay":
-			print("\nChoose a value!")
-			choose_key = input("$\"CDelay\">")
-		
-			try:
-				cdelay = float(choose_key)
-				data['constantclickdelay'] = float(choose_key)
-				data['randomdelay'] = False
-			except ValueError:
-				print("You must input a number.")
-
-		elif menuinput == "--help":
-			print(menu_str)
-
-		elif menuinput == "--exit":
-			break
-
-		else:
-			print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + menuinput + "\" is not a command.")
-		
-		# saves the settings
-		with open(settingsfile, 'w') as outfile:
-				json.dump(data, outfile,indent=4)
+			
+			# saves the settings
+			with open(settingsfile, 'w') as outfile:
+					json.dump(data, outfile,indent=4)
 
 elif args.deb == True:
 	while True:
