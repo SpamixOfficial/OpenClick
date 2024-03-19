@@ -6,7 +6,14 @@ def install_ctk():
     proc = subprocess.Popen("pip install customtkinter", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     stdoutdata, stderrdata = proc.communicate()
     root.destroy()
-    if not proc.returncode == 0:
+    if proc.returncode == 0:
+            window1 = Tk()
+            frm = ttk.Frame(window1, padding=10)
+            frm.grid()
+            ttk.Label(frm, text="")
+            ttk.Label(frm, text='Installation was a success!').grid(column=0, row=0)
+            ttk.Button(frm, text='Quit', command=window1.destroy).grid(column=0, row=1)
+    else:
         window1 = Tk()
         frm = ttk.Frame(window1, padding=10)
         frm.grid()
@@ -14,13 +21,7 @@ def install_ctk():
         ttk.Label(frm, text='Installation failed').grid(column=0, row=0)
         ttk.Button(frm, text='Quit', command=window1.destroy).grid(column=0, row=1)
         ttk.Button(frm, text='Show Error Message', command=show_error).grid(column=1, row=1)
-    elif proc.returncode == 0:
-        window1 = Tk()
-        frm = ttk.Frame(window1, padding=10)
-        frm.grid()
-        ttk.Label(frm, text="")
-        ttk.Label(frm, text='Installation was a success!').grid(column=0, row=0)
-        ttk.Button(frm, text='Quit', command=window1.destroy).grid(column=0, row=1)
+   
 def show_error():
     global proc
     window1.destroy()
