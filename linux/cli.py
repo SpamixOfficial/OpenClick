@@ -5,7 +5,7 @@ from colorama import Fore, Back, init
 from pynput.keyboard import Key, Listener
 from pynput.mouse import Button, Controller
 
-# settingsfile = "./settings.json"
+#settingsfile = "../settings.json"
 settingsfile = "/etc/openclick/settings.json"
 
 # Startup Check
@@ -463,10 +463,11 @@ print(color + "Controls: \n" + str(hotkey) + " to click (hold to click!) \n" + s
 
 
 ## Start of clicker code
-shouldClick = False # controlls the constantclick
+shouldClick = False # controls the constantclick
 
-## No idea why you get a bug here hehe not my code not my problem @spamix
-@listener.event
+## Commenting events out bc they are causing trouble
+
+#@listener.event
 def on_press(key):
 	global Key
 	global debugmode
@@ -492,7 +493,9 @@ def on_press(key):
 	if str(key) == str(Key.delete):
 		debugmode = not debugmode #toggles the debugmode
 		
-@listener.event
+
+
+#@listener.event
 def on_release(key):
 	global shouldClick
 	if key == Key.esc:
