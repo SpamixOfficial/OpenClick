@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 import requests, argparse, os, time, re, threading, json, zipfile, glob, getpass, subprocess, shutil, random
 
+from colorama import Fore, Back, init
+from pynput.keyboard import Key, Listener
+from pynput.mouse import Button, Controller
+
+#settingsfile = "../settings.json"
 settingsfile = "/etc/openclick/settings.json"
 
 # Startup Check
@@ -25,9 +30,7 @@ if True:
 
 ##############
 
-from colorama import Fore, Back, init
-from pynput.keyboard import Key, Listener
-from pynput.mouse import Button, Controller
+## Color imports are now at the top
 
 global shouldClick	
 init(autoreset=True)
@@ -50,88 +53,91 @@ import json
 with open(settingsfile) as f:
 	data = json.load(f)
 
+
 # Manually update argument
-if args.u == 'auto=True':
-	data['autoupdate']=True
-	with open(settingsfile, 'w') as outfile:
-		json.dump(data, outfile,indent=4)
-	print("Successfully updated settings.")
-	quit
-elif args.u == 'auto=False':
-	data['autoupdate']=False
-	with open(settingsfile, 'w') as outfile:
-		json.dump(data, outfile,indent=4)
-	print("Successfully updated settings.")
-	quit
-elif args.u == 'update':
-	# opening settings.json file
-	jsfile = open("settings.json")
-	##
+match args.u:
+	case 'auto=True':
+		data['autoupdate']=True
+		with open(settingsfile, 'w') as outfile:
+			json.dump(data, outfile,indent=4)
+		print("Successfully updated settings.")
+		quit
+	case 'auto=False':
+		data['autoupdate']=False
+		with open(settingsfile, 'w') as outfile:
+			json.dump(data, outfile,indent=4)
+		print("Successfully updated settings.")
+		quit
+	case 'update':
+		# opening settings.json file
+		jsfile = open("settings.json")
+		##
 
-	# getting new release json
-	response = requests.get("https://api.github.com/repos/SpamixOfficial/OpenClick/releases/latest")
-	respdata = response.json()
-	##
+		# getting new release json
+		response = requests.get("https://api.github.com/repos/SpamixOfficial/OpenClick/releases/latest")
+		respdata = response.json()
+		##
 
-	# getting new release info
-	newid = respdata["id"]
-	tag = respdata["tag_name"]
-	##
+		# getting new release info
+		newid = respdata["id"]
+		tag = respdata["tag_name"]
+		##
 
-	# local data
-	jsdata = json.load(jsfile)
+		# local data
+		jsdata = json.load(jsfile)
 
-	locdata = jsdata["release"]
-	##
+		locdata = jsdata["release"]
+		##
 
-	# url stuff
-	downurl = respdata["zipball_url"]
+		# url stuff
+		downurl = respdata["zipball_url"]
 
-	download = requests.get(downurl)
-	##
+		download = requests.get(downurl)
+		##
 
-	# filename and dir setting
-	downdir = "/tmp/"
-	downname = "openclick-" + tag + "-release.zip"
-	finalfile = os.path.join(downdir, downname)
-	##
-	print("Newest release: " + str(newid) + "\nLocal release: " + str(locdata))
-	updateinp = input("\nDo you want to update? y/n: ").lower()   
+		# filename and dir setting
+		downdir = "/tmp/"
+		downname = "openclick-" + tag + "-release.zip"
+		finalfile = os.path.join(downdir, downname)
+		##
+		print("Newest release: " + str(newid) + "\nLocal release: " + str(locdata))
+		updateinp = input("\nDo you want to update? y/n: ").lower()   
+		
 
-	if updateinp == "y":
-		# downloading and renaming zip file
-		with open(finalfile, 'wb') as fd:
-			print("Downloading...")
-			fd.write(download.content)
-		# outputing into directory and removing zip file
-		with zipfile.ZipFile(finalfile, 'r') as dezip:
-			print("Extracting into folder...")
-			dezip.extractall(path="/tmp/openclick")
-		os.remove(finalfile)
+		if updateinp == "y":
+			# downloading and renaming zip file
+			with open(finalfile, 'wb') as fd:
+				print("Downloading...")
+				fd.write(download.content)
+			# outputing into directory and removing zip file
+			with zipfile.ZipFile(finalfile, 'r') as dezip:
+				print("Extracting into folder...")
+				dezip.extractall(path="/tmp/openclick")
+			os.remove(finalfile)
 
-		# scanning folder name inside directory
-		dowrelname = os.listdir("/tmp/openclick")
-		dowdirname = " ".join(str(x) for x in dowrelname)
-		print(dowdirname)
+			# scanning folder name inside directory
+			dowrelname = os.listdir("/tmp/openclick")
+			dowdirname = " ".join(str(x) for x in dowrelname)
+			print(dowdirname)
 
-		# run installation script
-		print("Installing...")
-		installp = subprocess.run("/tmp/openclick/" + dowdirname + "/install.sh")
+			# run installation script
+			print("Installing...")
+			installp = subprocess.run("/tmp/openclick/" + dowdirname + "/install.sh")
 
-		if installp.returncode != 0:
-			print("Installation failed. \nRemoving temporary files and exiting.")
-			# remove all files if installation script fails
+			if installp.returncode != 0:
+				print("Installation failed. \nRemoving temporary files and exiting.")
+				# remove all files if installation script fails
+				shutil.rmtree("/tmp/openclick")
+				quit()
+			print("Update was successful! Removing update files...")
+			# remove directory when done
 			shutil.rmtree("/tmp/openclick")
+			print("Exiting...")
 			quit()
-		print("Update was successful! Removing update files...")
-		# remove directory when done
-		shutil.rmtree("/tmp/openclick")
-		print("Exiting...")
-		quit()
-	else:
-		quit()			
-#########################################
-# Automatically update
+		else:
+			quit()			
+		#########################################)
+	# Automatically update
 
 if autoup == True:
 	# opening settings.json file
@@ -226,72 +232,73 @@ Customization Menu
 		print(menu_str)
 
 		menuinput = input("$>").lower()
+		match menuinput:
+			case "--colorexamples":
+				print("Here are the colors!")
+				for color in colors.keys():
+					print(colors[color] + f"{color}")
 
-		if menuinput == "--colorexamples":
-			print("Here are the colors!")
-			for color in colors.keys():
-				print(colors[color] + f"{color}")
+				print("\n")
 
-			print("\n")
+			case"--textcolor":
 
-		elif menuinput == "--textcolor":
+				for color in nocolors:
+					print(color)
 
-			for color in nocolors:
-				print(color)
+				print("\nChoose a color!")
+				choose_color = input("$\"TextColor\">").upper()
+				# check if the chosen color is in the color list and if so set the textcolor to that value
+				if choose_color in nocolors:
+					data['textcolor']=choose_color
+				else:
+					print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + choose_color + "\" is not a valid color.")
+			case"--key":
+				for key in hotkeynames:
+					print(key)
+				print("\n Choose a key!")
+				choose_key = input("$\"Key\">").lower()
 
-			print("\nChoose a color!")
-			choose_color = input("$\"TextColor\">").upper()
-			# check if the chosen color is in the color list and if so set the textcolor to that value
-			if choose_color in nocolors:
-				data['textcolor']=choose_color
-			else:
-				print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + choose_color + "\" is not a valid color.")
-		elif menuinput == "--key":
-			for key in hotkeynames:
-				print(key)
-			print("\n Choose a key!")
-			choose_key = input("$\"Key\">").lower()
+				if choose_key in hotkeynames: # checks if the choosen key is in the key list
+					data['hotkey']=choose_key
+				else:
+					print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + menuinput + "\" is not a command.")
+			case"--ckey":
+				for key in hotkeynames:
+					print(key)
+				print("\n Choose a key!")
+				choose_key = input("$\"Key\">").lower()
 
-			if choose_key in hotkeynames: # checks if the choosen key is in the key list
-				data['hotkey']=choose_key
-			else:
+				if choose_key in hotkeynames: # checks if the choosen key is in the key list
+					data['constantkey']=choose_key
+				else:
+					print("The key you specified either doesn't exist or it isn't supported at the time.")
+			
+			
+			case"--rdelay":
+				data['randomdelay'] = True
+
+			case"--cdelay":
+				print("\nChoose a value!")
+				choose_key = input("$\"CDelay\">")
+			
+				try:
+					cdelay = float(choose_key)
+					data['constantclickdelay'] = float(choose_key)
+					data['randomdelay'] = False
+				except ValueError:
+					print("You must input a number.")
+
+			case"--help":
+				print(menu_str)
+
+			case"--exit":
+				break
+
+			case _:
 				print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + menuinput + "\" is not a command.")
-		elif menuinput == "--ckey":
-			for key in hotkeynames:
-				print(key)
-			print("\n Choose a key!")
-			choose_key = input("$\"Key\">").lower()
-
-			if choose_key in hotkeynames: # checks if the choosen key is in the key list
-				data['constantkey']=choose_key
-			else:
-				print("The key you specified either doesn't exist or it isn't supported at the time.")
-		
-		
-		elif menuinput == "--rdelay":
-			data['randomdelay'] = True
-
-		elif menuinput == "--cdelay":
-			print("\nChoose a value!")
-			choose_key = input("$\"CDelay\">")
-		
-			try:
-				cdelay = float(choose_key)
-				data['constantclickdelay'] = float(choose_key)
-				data['randomdelay'] = False
-			except ValueError:
-				print("You must input a number.")
-
-		elif menuinput == "--help":
-			print(menu_str)
-
-		elif menuinput == "--exit":
-			break
-
-		else:
-			print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + menuinput + "\" is not a command.")
-		
-		# saves the settings
+				
+			
+			# saves the settings
 		with open(settingsfile, 'w') as outfile:
 				json.dump(data, outfile,indent=4)
 
@@ -318,6 +325,9 @@ elif args.deb == True:
 
 
 
+## Colors
+
+# Loading colors from JSON File
 if True:
 	# settingsread = open("settings.txt", 'r+').read()
 	# colorscheck = ["BLACK", "BLUE", "CYAN", "GREEN", "LIGHTBLACK_EX", "LIGHTBLUE_EX", "LIGHTCYAN_EX", "LIGHTGREEN_EX", "LIGHTMAGENTA_EX", "LIGHTRED_EX", "LIGHTWHITE_EX", "LIGHTYELLOW_EX", "MAGENTA", "RED", "WHITE", "YELLOW"]
@@ -328,44 +338,40 @@ if True:
 		data = json.load(f)
 		fullcolorcheck =  (data['textcolor'])
 
-	if "BLACK" in fullcolorcheck:
-		color = Fore.BLACK
-	elif "BLUE" in fullcolorcheck:
-		color = Fore.BLUE
-	elif "CYAN" in fullcolorcheck:
-		color = Fore.CYAN
-	elif "GREEN" in fullcolorcheck:
-		color = Fore.GREEN
-	elif "LIGHTBLACK_EX" in fullcolorcheck:
-		color = Fore.LIGHTBLACK_EX
-	elif "LIGHTBLUE_EX" in fullcolorcheck:
-		color = Fore.LIGHTBLUE_EX
-	elif "LIGHTCYAN_EX" in fullcolorcheck:
-		color = Fore.LIGHTCYAN_EX
-	elif "LIGHTGREEN_EX" in fullcolorcheck:
-		color = Fore.LIGHTGREEN_EX
-	elif "LIGHTMAGENTA_EX" in fullcolorcheck:
-		color = Fore.LIGTMAGENTA_EX
-	elif "LIGHTRED_EX" in fullcolorcheck:
-		color = Fore.LIGHTRED_EX
-	elif "LIGHTWHITE_EX" in fullcolorcheck:
-		color = Fore.LIGHTWHITE_EX
-	elif "LIGHTYELLOW_EX" in fullcolorcheck:
-		color = Fore.LIGHTYELLOW_EX
-	elif "MAGENTA" in fullcolorcheck:
-		color = Fore.MAGENTA
-	elif "RED" in fullcolorcheck:
-		color = Fore.RED
-	elif "WHITE" in fullcolorcheck:
-		color = Fore.WHITE
-	elif "YELLOW" in fullcolorcheck:
-		color = Fore.YELLOW
+
+# Selecting correct color
+color_words = "BLACK", "BLUE", "CYAN", "GREEN", "LIGHTBLACK_EX", "LIGHTBLUE_EX", "LIGHTCYAN_EX", "LIGHTGREEN_EX", "LIGHTMAGENTA_EX", "LIGHTRED_EX", "LIGHTWHITE_EX", "LIGHTYELLOW_EX", "MAGENTA", "RED", "WHITE", "YELLOW"
+
+color_match = next((word for word in color_words if word in fullcolorcheck), None)
+
+color = {
+    "BLACK": Fore.BLACK,
+    "BLUE": Fore.BLUE,
+    "CYAN": Fore.CYAN,
+    "GREEN": Fore.GREEN,
+    "LIGHTBLACK_EX": Fore.LIGHTBLACK_EX,
+    "LIGHTBLUE_EX": Fore.LIGHTBLUE_EX,
+    "LIGHTCYAN_EX": Fore.LIGHTCYAN_EX,
+    "LIGHTGREEN_EX": Fore.LIGHTGREEN_EX,
+    "LIGHTMAGENTA_EX": Fore.LIGHTMAGENTA_EX,
+    "LIGHTRED_EX": Fore.LIGHTRED_EX,
+    "LIGHTWHITE_EX": Fore.LIGHTWHITE_EX,
+    "LIGHTYELLOW_EX": Fore.LIGHTYELLOW_EX,
+    "MAGENTA": Fore.MAGENTA,
+    "RED": Fore.RED,
+    "WHITE": Fore.WHITE,
+    "YELLOW": Fore.YELLOW
+}.get(color_match)
+
+
 
 hotkey = Key.f1
 constantKey = Key.f2
 constantClickDelay = 0.1 # the delay between clicks in constantclick
 
 
+
+## Placeholder ifs (probably)
 with open(settingsfile) as f:
 	data = json.load(f)
 
@@ -376,8 +382,10 @@ with open(settingsfile) as f:
 			constantKey =  "Key." + (data['constantkey'])
 
 	if True:
-			userandomdelay = (data['randomdelay'])
-
+			try:
+				userandomdelay = (data['randomdelay'])
+			except:
+				userandomdelay = False
 
 	#sets the constantclickdelay
 	if True:
@@ -393,16 +401,16 @@ with open(settingsfile) as f:
 if args.cd:
 	constantClickDelay = args.cd
 
-if not args.mb == None:
-	args.mb = args.mb.lower()
-	if args.mb == "left":
-		mouse_button = Button.left
-	elif args.mb == "right":
+
+## Only applies.lower if isnt none, otherwise it just stays none
+args.mb = args.mb.lower() if args.mb is not None else None
+match args.mb:
+	case "right":
 		mouse_button = Button.right
-	elif args.mb == "middle":
+	case "middle":
 		mouse_button = Button.middle
-elif args.mb == None:
-	mouse_button = Button.left
+	case _:
+		mouse_button = Button.left
 
 
 init(autoreset=True)
@@ -425,9 +433,11 @@ openlogo = """
           |__/
 
 
-							SpamixOfficial 2023
+							SpamixOfficial 2023 & UndercoverDog 2024 (hehe)
 """
-if debugmode == True:
+
+### Logo printing
+if debugmode:
 	print("Debugmode")
 	print("\r" + str(fullcolorcheck) + str(fullkeycheck))
 for a in "Hello and welcome to":
@@ -453,10 +463,11 @@ print(color + "Controls: \n" + str(hotkey) + " to click (hold to click!) \n" + s
 
 
 ## Start of clicker code
-shouldClick = False # controlls the constantclick
+shouldClick = False # controls the constantclick
 
+## Commenting events out bc they are causing trouble
 
-@listener.event
+#@listener.event
 def on_press(key):
 	global Key
 	global debugmode
@@ -482,7 +493,9 @@ def on_press(key):
 	if str(key) == str(Key.delete):
 		debugmode = not debugmode #toggles the debugmode
 		
-@listener.event
+
+
+#@listener.event
 def on_release(key):
 	global shouldClick
 	if key == Key.esc:

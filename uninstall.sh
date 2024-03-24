@@ -12,12 +12,23 @@ if [[ "$EUID" != 0 ]]; then
         exit 1
     fi
 fi
+
+
+##  check if its actually not null, otherwise we will get new bumble bee
+# Added just in case the name wont be a constant anymore in the future
+
 pkgname="openclick"
 
-sudo rm /usr/bin/openclick
-sudo rm -r "/usr/share/licenses/$pkgname"
-sudo rm -r "/usr/share/doc/$pkgname"
-sudo rm -r "/etc/$pkgname"
 
-echo "Removal Success!"
+if [[ -n $pkgname ]]; then
+    sudo rm /usr/bin/openclick
+    sudo rm -r "/usr/share/licenses/$pkgname"
+    sudo rm -r "/usr/share/doc/$pkgname"
+    sudo rm -r "/etc/$pkgname"
+    echo "Removal Success!"
+
+else
+    echo "Package name is null. Cannot proceed with removal."
+fi
+
 exit 0
