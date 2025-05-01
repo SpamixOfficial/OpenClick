@@ -1,0 +1,12 @@
+[package]
+name = "crabmouse"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+[features]
+linux = []
+windows = []
+macos = []
+default = ["linux", "windows", "macos"]
