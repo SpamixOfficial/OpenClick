@@ -4,9 +4,10 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+windows = {version = "0.61.1", optional = true, features = ["Win32_UI_WindowsAndMessaging"]}
 
 [features]
 linux = []
-windows = []
+windows = ["dep:windows"]
 macos = []
-default = ["linux", "windows", "macos"]
+default = ["linux", "macos", "windows"]

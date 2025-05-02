@@ -7,7 +7,7 @@ pub mod windows;
 
 use std::ops::{Add, Sub};
 
-#[derive(Debug, Copy, Clone, PartialEq)]
+#[derive(Debug, Copy, Clone, PartialEq, Default)]
 pub struct Position(usize, usize);
 
 impl Position {

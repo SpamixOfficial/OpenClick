@@ -13,12 +13,12 @@ pub struct Mouse {
 }
 
 impl Mouse {
-    pub fn new() -> Self {
+    /*pub fn new() -> Self {
         let disp = match env::var_os("WAYLAND_DISPLAY") {
             Some(_) => DisplaySession::Wayland,
             None => DisplaySession::X11
         };
-    }
+    }*/
 }
 
 impl MouseFeat for Mouse {
