@@ -1,4 +1,4 @@
-use crabmouse;
+use crabmouse::{self, Position};
  
 //use mouce::{Mouse, MouseActions};
  

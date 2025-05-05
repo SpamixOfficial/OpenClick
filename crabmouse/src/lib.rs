@@ -1,13 +1,9 @@
-#[cfg(target_os = "linux")]
-#[cfg(feature = "linux")]
+#[cfg(all(target_os = "linux", feature = "linux"))]
 pub mod linux;
-
-#[cfg(target_os = "macos")]
-#[cfg(feature = "macos")]
+#[cfg(all(target_os = "macos", feature = "macos"))]
 pub mod macos;
 
-#[cfg(target_os = "windows")]
-#[cfg(feature = "windows")]
+#[cfg(all(target_os = "windows", feature = "windows"))]
 pub mod windows;
 
 use std::ops::{Add, Sub};
@@ -48,24 +44,38 @@ pub enum Click {
 
 pub trait MouseFeat {
     /// Set absolute position
-    fn set_position(&mut self, pos: Position) {
+    fn set_position(&self, pos: Position) -> Result<(), String> {
         unimplemented!()
     }
     /// Get current position
-    fn get_position(&mut self) {
+    fn get_position(&self) -> Result<Position, String> {
         unimplemented!()
     }
     /// Set relative position, aka "move relative"
+    ///
     /// Example: move_relative(Position(1,1)) would move it x+1 and y+1
-    fn move_relative(&mut self, pos: Position) {
+    fn set_relative_position(&self, pos: Position) -> Result<(), String> {
         unimplemented!()
     }
     /// Simulate click
-    fn click(&mut self, click: Click) {
+    fn click(&self, click: Click) -> Result<(), String> {
         unimplemented!()
     }
+
+    /// Simulate grab-click
+    fn click_grab(&self, click: Click) -> Result<(), String> {
+        unimplemented!()
+    }
+
+    /// Simulate release-click
+    ///
+    /// Usually only used after **click_grab**
+    fn click_release(&self, click: Click) -> Result<(), String> {
+        unimplemented!()
+    }
+
     // TODO: Simulate scoll
-    //fn scroll(&mut self, scroll: Click){
+    //fn scroll(&self, scroll: Click){
     //    unimplemented!()
     //}
 }

@@ -34,4 +34,7 @@ impl Mouse {
 }
 
 impl MouseFeat for Mouse {
+    fn get_position(&self) -> Result<Position, String> {
+        Self::get_pos()
+    }
 }
