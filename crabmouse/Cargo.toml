@@ -3,11 +3,17 @@ name = "crabmouse"
 version = "0.1.0"
 edition = "2021"
 
-[dependencies]
-windows = {version = "0.61.1", optional = true, features = ["Win32_UI_WindowsAndMessaging"]}
+[target.'cfg(target_os="windows")'.dependencies]
+windows = { version = "0.61.1", optional = true, features = [
+    "Win32_UI_WindowsAndMessaging",
+] }
+
+[target.'cfg(target_os="linux")'.dependencies]
+libc = { version = "0.2", optional = true }
+xcb = { version = "1.5.0", optional = true}
 
 [features]
-linux = []
+linux = ["dep:libc", "dep:xcb"]
 windows = ["dep:windows"]
 macos = []
 default = ["linux", "macos", "windows"]

@@ -1,7 +1,12 @@
+#[cfg(target_os = "linux")]
 #[cfg(feature = "linux")]
 pub mod linux;
+
+#[cfg(target_os = "macos")]
 #[cfg(feature = "macos")]
 pub mod macos;
+
+#[cfg(target_os = "windows")]
 #[cfg(feature = "windows")]
 pub mod windows;
 
