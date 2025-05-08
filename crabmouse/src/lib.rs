@@ -6,7 +6,7 @@ pub mod macos;
 #[cfg(all(target_os = "windows", feature = "windows"))]
 pub mod windows;
 
-use std::ops::{Add, Sub};
+use std::ops::{Add, AddAssign, Sub, SubAssign};
 
 #[derive(Debug, Copy, Clone, PartialEq, Default)]
 pub struct Position(usize, usize);
@@ -18,6 +18,18 @@ impl Position {
     pub fn set(&mut self, x: usize, y: usize) {
         self.0 = x;
         self.1 = y;
+    }
+}
+
+impl AddAssign for Position {
+    fn add_assign(&mut self, rhs: Self) {
+        *self = Self(self.0 + rhs.0, self.1 + rhs.1);
+    }
+}
+
+impl SubAssign for Position {
+    fn sub_assign(&mut self, rhs: Self) {
+        *self = Self(self.0 - rhs.0, self.1 - rhs.1);
     }
 }
 
@@ -57,17 +69,17 @@ pub trait MouseFeat {
     fn set_relative_position(&self, pos: Position) -> Result<(), String> {
         unimplemented!()
     }
-    /// Simulate click
+    /// Simulate single click
     fn click(&self, click: Click) -> Result<(), String> {
         unimplemented!()
     }
 
-    /// Simulate grab-click
+    /// Simulate holding click (no key-release)
     fn click_grab(&self, click: Click) -> Result<(), String> {
         unimplemented!()
     }
 
-    /// Simulate release-click
+    /// Simulate release click (key-release)
     ///
     /// Usually only used after **click_grab**
     fn click_release(&self, click: Click) -> Result<(), String> {
