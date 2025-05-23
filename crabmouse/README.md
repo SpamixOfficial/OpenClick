@@ -12,9 +12,9 @@ However, if you're writing an application specifically for macos (example) then 
 
 Table of features:
 
-| Feature | Description                  |
-| ------- | ---------------------------- |
-| default | enables all features         |
+| Feature | Description             |
+| ------- | ----------------------- |
+| default | Enables all features    |
 | linux   | Enables linux support   |
 | windows | Enables windows support |
 | macos   | Enables macos support   |
@@ -24,4 +24,10 @@ Table of features:
 ## Wayland
 
 In contrast to X11, wayland does not implement any methods to get the global cursor position - that is the responsibility of each "compositor".
-Therefore, without creating a file for every compositor, there's no way to get the cursor position reliably. Sorry about this inconvenience!
+Therefore, without creating code for every compositor, there's no way to get the cursor position reliably. Sorry about this inconvenience!
+
+## Building
+### Dependencies
+- Clang >= 9.0
+- Latest Rust
+- (Linux Only) libxcb-devel

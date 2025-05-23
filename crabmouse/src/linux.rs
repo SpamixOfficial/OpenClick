@@ -1,11 +1,13 @@
 pub mod x11;
+pub mod wayland;
 use crate::{Click, Position,MouseFeat};
 use std::env;
 use x11::XState;
+use wayland::WState;
 
 #[derive(Debug, PartialEq, PartialOrd)]
 enum DisplaySession {
-    Wayland(XState),
+    Wayland(WState),
     X11(XState),
 }
 
@@ -18,7 +20,7 @@ pub struct Mouse {
 impl Mouse {
     pub fn new() -> Self {
         let disp = match env::var_os("WAYLAND_DISPLAY") {
-            Some(_) => DisplaySession::Wayland(XState::setup()), //TODO: Wayland bs
+            Some(_) => DisplaySession::Wayland(WState::setup()), //TODO: Wayland bs
             None => DisplaySession::X11(XState::setup()),
         };
         let position = match &disp {

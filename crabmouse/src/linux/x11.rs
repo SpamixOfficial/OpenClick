@@ -45,7 +45,7 @@ impl Debug for XState {
 
 impl XState {
     /// Create new XState object, **will panic on failure!**
-    pub fn setup() -> XState {
+    pub fn setup() -> Self {
         let (conn, screen_num) =
             xcb::Connection::connect(None).expect("Failed to get X11 connection");
 
