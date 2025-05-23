@@ -14,10 +14,10 @@ libc = { version = "0.2", optional = true }
 xcb = { version = "1.5.0", optional = true}
 
 [target.'cfg(target_os="linux")'.build-dependencies]
-bindgen = "0.71.0"
+bindgen = { version = "0.71.0", optional = true }
 
 [features]
-linux = ["dep:libc", "dep:xcb"]
+linux = ["dep:libc", "dep:xcb", "dep:bindgen"]
 windows = ["dep:windows"]
 macos = []
 default = ["linux", "macos", "windows"]

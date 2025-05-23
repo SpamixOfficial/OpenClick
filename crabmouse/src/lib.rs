@@ -1,5 +1,6 @@
 #[cfg(all(target_os = "linux", feature = "linux"))]
 pub mod linux;
+#[cfg(all(target_os = "linux", feature = "linux"))]
 mod bindings;
 
 #[cfg(all(target_os = "macos", feature = "macos"))]

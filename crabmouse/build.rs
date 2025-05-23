@@ -2,6 +2,7 @@ use std::env;
 use std::path::PathBuf;
 
 fn main() {
+    #[cfg(target_os = "linux")]
     if cfg!(target_os = "linux") {
         let uinput_bind = bindgen::Builder::default()
             .header("bindings/uinput.h")
