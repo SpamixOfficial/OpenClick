@@ -1,7 +1,7 @@
 use crate::{Click, MouseFeat, Position};
 
 use windows::Win32::{
-    Foundation::POINT,
+    Foundation::{GetLastError, POINT},
     UI::{
         Input::KeyboardAndMouse::{
             SendInput, INPUT, INPUT_0, INPUT_MOUSE, MOUSEEVENTF_LEFTDOWN, MOUSEEVENTF_LEFTUP,
@@ -11,6 +11,8 @@ use windows::Win32::{
         WindowsAndMessaging::{GetCursorPos, SetCursorPos},
     },
 };
+
+use std::mem;
 
 #[derive(Debug, Clone, Copy)]
 pub struct Mouse {
@@ -75,11 +77,12 @@ impl Mouse {
                     },
                 },
             });
-            let sent_events = SendInput(&raw_inarr, raw_inarr.len() as i32);
+            let sent_events = SendInput(&raw_inarr, mem::size_of::<INPUT>() as i32);
             if sent_events != (raw_inarr.len() as u32) {
+                let errcode = GetLastError().0;
                 Err(format!(
-                    "WinAPI only sent {sent_events} out of {} events",
-                    raw_inarr.len() as i32
+                    "WinAPI only sent {sent_events} out of {} events | Error: {errcode}",
+                    raw_inarr.len() as i32,
                 ))
             } else {
                 Ok(())

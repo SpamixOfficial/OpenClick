@@ -15,11 +15,20 @@ use crabmouse::macos::Mouse;
 
 fn main() {
     let mouse = Mouse::new();
-    let wait = time::Duration::from_secs(2);
+    let wait = time::Duration::from_secs(1);
     dbg!(mouse.get_position());
-    dbg!(mouse.set_position(Position::new(100,10)));
+    dbg!(mouse.set_position(Position::new(100,200)));
     //mouse.test_hold();
     thread::sleep(wait);
-    dbg!(mouse.set_relative_position(Position::new(50,0)));
+    dbg!(mouse.set_relative_position(Position::new(100,0)));
     dbg!(mouse.click(Click::Left));
+    thread::sleep(wait);
+    dbg!(mouse.click(Click::Left));
+    thread::sleep(wait);
+    dbg!(mouse.set_relative_position(Position::new(150,0)));
+    dbg!(mouse.click_grab(Click::Left));
+    thread::sleep(wait);
+    dbg!(mouse.set_relative_position(Position::new(100,0)));
+    thread::sleep(wait);
+    dbg!(mouse.click_release(Click::Left));
 }
