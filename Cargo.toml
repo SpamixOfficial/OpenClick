@@ -5,4 +5,7 @@ edition = "2021"
 
 [dependencies]
 #mouce = { version = "0.2.51", default-features = false }
-crabmouse = { path="crabmouse", features=["default"]}
+crabmouse = { path = "crabmouse", features = ["default"] }
+
+[workspace]
+members = ["crabmouse"]

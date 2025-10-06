@@ -6,12 +6,21 @@ edition = "2021"
 [target.'cfg(target_os="windows")'.dependencies]
 windows = { version = "0.61.1", optional = true, features = [
     "Win32_UI_WindowsAndMessaging",
-    "Win32_UI_Input_KeyboardAndMouse"
+    "Win32_UI_Input_KeyboardAndMouse",
 ] }
 
 [target.'cfg(target_os="linux")'.dependencies]
 libc = { version = "0.2", optional = true }
-xcb = { version = "1.5.0", optional = true}
+xcb = { version = "1.5.0", optional = true }
+
+[target.'cfg(target_os="macos")'.dependencies]
+objc2-core-graphics = { version = "0.3.2", optional = true, features = [
+    "CGEvent",
+    "CGEventTypes",
+] }
+objc2-core-foundation = { version = "0.3.2", optional = true, features = [
+    "CFCGTypes",
+] }
 
 [target.'cfg(target_os="linux")'.build-dependencies]
 bindgen = { version = "0.71.0", optional = true }
@@ -19,5 +28,5 @@ bindgen = { version = "0.71.0", optional = true }
 [features]
 linux = ["dep:libc", "dep:xcb", "dep:bindgen"]
 windows = ["dep:windows"]
-macos = []
+macos = ["dep:objc2-core-graphics", "dep:objc2-core-foundation"]
 default = ["linux", "macos", "windows"]
