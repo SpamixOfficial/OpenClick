@@ -77,6 +77,7 @@ pub enum Click {
     Middle,
 }
 
+// NOTE TO MAINTAINER(S): Before you question why a self-reference is used here (but not used in either macos or windows), the linux implementation needs it because of wayland and x11
 pub trait MouseFeat {
     /// Set absolute position
     fn set_position(&self, pos: Position) -> Result<(), String> {

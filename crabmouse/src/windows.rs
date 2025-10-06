@@ -16,13 +16,13 @@ use std::mem;
 
 #[derive(Debug, Clone, Copy)]
 pub struct Mouse {
-    pub position: Position,
+    //pub position: Position,
 }
 
 impl Mouse {
     pub fn new() -> Self {
-        let position = Self::get_pos().unwrap();
-        Self { position }
+        //let position = Self::get_pos().unwrap();
+        Self { }//position }
     }
 
     fn get_pos() -> Result<Position, String> {
@@ -100,11 +100,8 @@ impl MouseFeat for Mouse {
         Self::set_pos(pos)
     }
     fn set_relative_position(&self, pos: Position) -> Result<(), String> {
-        let relative_pos = match Self::get_pos() {
-            Ok(x) => x + pos,
-            Err(e) => return Err(e.to_string()),
-        };
-        Self::set_pos(relative_pos)
+        let relative_pos = Self::get_pos()?;
+        Self::set_pos(relative_pos + pos)
     }
 
     fn click(&self, click: Click) -> Result<(), String> {
