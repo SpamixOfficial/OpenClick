@@ -1,7 +1,7 @@
 #[cfg(all(target_os = "linux", feature = "linux"))]
-pub mod linux;
-#[cfg(all(target_os = "linux", feature = "linux"))]
 mod bindings;
+#[cfg(all(target_os = "linux", feature = "linux"))]
+pub mod linux;
 
 #[cfg(all(target_os = "macos", feature = "macos"))]
 pub mod macos;
@@ -10,6 +10,9 @@ pub mod macos;
 pub mod windows;
 
 use std::ops::{Add, AddAssign, Sub, SubAssign};
+
+#[cfg(target_os = "macos")]
+use objc2_core_foundation::CGPoint;
 
 #[derive(Debug, Copy, Clone, PartialEq, Default)]
 pub struct Position(usize, usize);
@@ -47,6 +50,23 @@ impl Sub for Position {
     type Output = Self;
     fn sub(self, b: Self) -> Self {
         Self(self.0 - b.0, self.1 - b.1)
+    }
+}
+
+#[cfg(target_os = "macos")]
+impl From<CGPoint> for Position {
+    fn from(value: CGPoint) -> Self {
+        Self::new(value.x as usize, value.y as usize)
+    }
+}
+
+#[cfg(target_os = "macos")]
+impl Into<CGPoint> for Position {
+    fn into(self) -> CGPoint {
+        CGPoint {
+            x: self.0 as f64,
+            y: self.1 as f64,
+        }
     }
 }
 

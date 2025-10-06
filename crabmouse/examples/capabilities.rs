@@ -16,6 +16,7 @@ use crabmouse::macos::Mouse;
 fn main() {
     let mouse = Mouse::new();
     let wait = time::Duration::from_secs(1);
+    thread::sleep(wait);
     dbg!(mouse.get_position());
     dbg!(mouse.set_position(Position::new(100,200)));
     //mouse.test_hold();
