@@ -164,5 +164,4 @@ The default value is 0,5 seconds!
 # Extra info
 If you find any bugs, report them!
 The project is written in python.
-And lastly, if you find something you feel like can be improved, changed or just something you want to add, suggest it, and/or pullrequest it!
-
+And lastly, if you find something you feel like can be improved, changed or just something you want to add, suggest it and/or pull request them!
