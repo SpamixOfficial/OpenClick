@@ -1,11 +1,9 @@
 {
-    "release": "null",
-    "autoupdate": true,
+    "firststartup": false,
+    "sudo": false,
     "hotkey": "f1",
     "constantkey": "f2",
     "constantclickdelay": 0.5,
-    "firststartup": true,
     "debugmode": false,
-    "textcolor": "WHITE",
-    "sudo": true
+    "textcolor": "WHITE"
 }

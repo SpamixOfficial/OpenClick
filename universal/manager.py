@@ -1,128 +1,147 @@
+"""
+OpenClick Manager (Module Edition)
+
+Interactive menu for customizing settings.json: text color, hotkeys,
+constant-click delay, and a debug toggle.
+"""
+
 import argparse
-from colorama import Fore, Back, init
-init(autoreset=True)
-colors = dict(Fore.__dict__.items())
-nocolors = ["BLACK", "BLUE", "CYAN", "GREEN", "LIGHTBLACK_EX", "LIGHTBLUE_EX", "LIGHTCYAN_EX", "LIGHTGREEN_EX",
-"LIGHTMAGENTA_EX", "LIGHTRED_EX", "LIGHTWHITE_EX", "LIGHTYELLOW_EX", "MAGENTA", "RED", "RESET", "WHITE", "YELLOW"]
-hotkeynames = [
-    'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9'
-    ]
-parser = argparse.ArgumentParser(description='OpenClick Manager')
-parser.add_argument("--c", "--custom", help="Opens the customization menu", action="store_true")
-parser.add_argument("-deb", help="Debug", action="store_true")
-args = parser.parse_args()
-
 import json
-# load the json file and store it as data
-with open('settings.json') as f:
-	data = json.load(f)
 
-if args.c == True:
-	while True:
-		print("Customization Menu")
-		print("\r")
-		print("	\r Textcolor (--textcolor)")
-		print(" \r Color Examples (--colorexamples)")
-		print("	\r Key (--key)")
-		print("	\r Constant Key (--ckey)")
-		print("	\r Constant Click Delay (--cdelay)")
-		print("	\r Explainer (--help) (This one explains all settings!")
-		print("\r Exit (--exit)")
+from colorama import Back, Fore, init
 
-		menuinput = input("$>").lower()
+init(autoreset=True)
 
-		if menuinput == "--colorexamples":
-			print("Here are the colors!")
-			for color in colors.keys():
-				print(colors[color] + f"{color}")
+SETTINGS_FILE = "settings.json"
 
-			print("\n")
+ALL_COLORS = dict(Fore.__dict__.items())
+VALID_COLORS = [
+    "BLACK", "BLUE", "CYAN", "GREEN", "LIGHTBLACK_EX", "LIGHTBLUE_EX",
+    "LIGHTCYAN_EX", "LIGHTGREEN_EX", "LIGHTMAGENTA_EX", "LIGHTRED_EX",
+    "LIGHTWHITE_EX", "LIGHTYELLOW_EX", "MAGENTA", "RED", "WHITE", "YELLOW",
+]
+HOTKEY_NAMES = ["f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9"]
 
-		elif menuinput == "--textcolor":
 
-			for color in nocolors:
-				print(color)
+def load_settings():
+    with open(SETTINGS_FILE) as f:
+        return json.load(f)
 
-			print("\nChoose a color!")
-			choose_color = input("$\"TextColor\">").upper()
-			# check if the chosen color is in the color list and if so set the textcolor to that value
-			if choose_color in nocolors:
-				data['textcolor']=choose_color
-			else:
-				print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + choose_color + "\" is not a valid color.")
-		elif menuinput == "--key":
-			for key in hotkeynames:
-				print(key)
-			print("\n Choose a key!")
-			choose_key = input("$\"Key\">").lower()
 
-			if choose_key in hotkeynames: # checks if the choosen key is in the key list
-				data['hotkey']=choose_key
-			else:
-				print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + menuinput + "\" is not a command.")
-		elif menuinput == "--ckey":
-			for key in hotkeynames:
-				print(key)
-			print("\n Choose a key!")
-			choose_key = input("$\"Key\">").lower()
+def save_settings(data):
+    with open(SETTINGS_FILE, "w") as f:
+        json.dump(data, f, indent=4)
 
-			if choose_key in hotkeynames: # checks if the choosen key is in the key list
-				data['constantkey']=choose_key
-			else:
-				print("The key you specified either doesn't exist or it isn't supported at the time.")
-		
-		elif menuinput == "--cdelay":
-			print("\nChoose a value!")
-			choose_key = input("$\"CDelay\">")
-		
-			try:
-				cdelay = float(choose_key)
-				data['constantclickdelay'] = float(choose_key)
-			except ValueError:
-				print("You must input a number.")
-		elif menuinput == "--au":
-			print("Should Openclick check for updates automatically (y/n)?")
-			au = input("$\"AU\">").lower()
-			if au == "y":
-				data['autoupdate'] = True
-			else:
-				data['autoupdate'] = False
-		elif menuinput == "--help":
-			print("\r Textcolor (--textcolor) - The color of the text you see in the terminal.")
-			print("\r Color Examples (--colorexamples) - Shows you the colors you can choose from.")
-			print("\r Key (--key) - The key for the \"Normal\" mode.")
-			print("\r Constant Key (--ckey) - The key for the \"Constant\" mode.")
-			print("\r Constant Click Delay (--cdelay) - The delay for the \"Constant\" mode.")
-			print("\r AU (--au) - If Openclick should check for updates automatically (wifi is necessary!)")
-			print("\r Explainer (--help) (This one explains all settings!")
-			print("\r Exit (--exit)")
 
-		elif menuinput == "--exit":
-			break
+def invalid(command):
+    print(Back.BLACK + Fore.LIGHTWHITE_EX + f'Invalid command: "{command}" is not a command.')
 
-		else:
-			print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + menuinput + "\" is not a command.")
 
-		# saves the settings
-		with open('settings.json', 'w') as outfile:
-				json.dump(data, outfile,indent=4)
+def customization_menu(data):
+    while True:
+        print("Customization Menu\n")
+        print("\r Textcolor (--textcolor)")
+        print(" \r Color Examples (--colorexamples)")
+        print("\r Key (--key)")
+        print("\r Constant Key (--ckey)")
+        print("\r Constant Click Delay (--cdelay)")
+        print("\r Explainer (--help) (This one explains all settings!)")
+        print("\r Exit (--exit)")
 
-elif args.deb == True:
-	while True:
-		print("Debug Menu")
-		print("\rdebugmode (--d f/t)")
-		print("\rexit (--exit")
-		debinput = input("$>").lower()
-		if debinput == "--d f":
-			data['debugmode']=False
-		elif debinput == "--d t":
-			data['debugmode']=True
-		elif debinput == "--exit":
-			break
-		else:
-			print(Back.BLACK + Fore.LIGHTWHITE_EX + "Invalid command: \"" + debinput + "\" is not a command.")
-		with open('settings.json', 'w') as outfile:
-				json.dump(data, outfile,indent=4)
-else:
-	print("Use python manager.py -h for help.")
+        choice = input("$>").lower()
 
+        if choice == "--colorexamples":
+            print("Here are the colors!")
+            for name in ALL_COLORS:
+                print(ALL_COLORS[name] + name)
+            print()
+
+        elif choice == "--textcolor":
+            for name in VALID_COLORS:
+                print(name)
+            chosen = input('\nChoose a color!\n$"TextColor">').upper()
+            if chosen in VALID_COLORS:
+                data["textcolor"] = chosen
+            else:
+                invalid(chosen)
+
+        elif choice == "--key":
+            for key in HOTKEY_NAMES:
+                print(key)
+            chosen = input('\nChoose a key!\n$"Key">').lower()
+            if chosen in HOTKEY_NAMES:
+                data["hotkey"] = chosen
+            else:
+                invalid(chosen)
+
+        elif choice == "--ckey":
+            for key in HOTKEY_NAMES:
+                print(key)
+            chosen = input('\nChoose a key!\n$"Key">').lower()
+            if chosen in HOTKEY_NAMES:
+                data["constantkey"] = chosen
+            else:
+                print("The key you specified either doesn't exist or it isn't supported at the time.")
+
+        elif choice == "--cdelay":
+            chosen = input('\nChoose a value!\n$"CDelay">')
+            try:
+                data["constantclickdelay"] = float(chosen)
+            except ValueError:
+                print("You must input a number.")
+
+        elif choice == "--help":
+            print("\r Textcolor (--textcolor) - The color of the text you see in the terminal.")
+            print("\r Color Examples (--colorexamples) - Shows you the colors you can choose from.")
+            print('\r Key (--key) - The key for the "Normal" mode.')
+            print('\r Constant Key (--ckey) - The key for the "Constant" mode.')
+            print('\r Constant Click Delay (--cdelay) - The delay for the "Constant" mode.')
+            print("\r Explainer (--help) (This one explains all settings!)")
+            print("\r Exit (--exit)")
+
+        elif choice == "--exit":
+            break
+
+        else:
+            invalid(choice)
+
+        save_settings(data)
+
+
+def debug_menu(data):
+    while True:
+        print("Debug Menu")
+        print("\rdebugmode (--d f/t)")
+        print("\rexit (--exit)")
+        choice = input("$>").lower()
+
+        if choice == "--d f":
+            data["debugmode"] = False
+        elif choice == "--d t":
+            data["debugmode"] = True
+        elif choice == "--exit":
+            break
+        else:
+            invalid(choice)
+
+        save_settings(data)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="OpenClick Manager")
+    parser.add_argument("--c", "--custom", dest="custom", help="Opens the customization menu", action="store_true")
+    parser.add_argument("-deb", dest="debug", help="Debug", action="store_true")
+    args = parser.parse_args()
+
+    data = load_settings()
+
+    if args.custom:
+        customization_menu(data)
+    elif args.debug:
+        debug_menu(data)
+    else:
+        print("Use python manager.py -h for help.")
+
+
+if __name__ == "__main__":
+    main()

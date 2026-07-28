@@ -3,6 +3,7 @@ Thanks to the following persons for commiting to the project!
 
 * spynetS (Alfred Roos, https://github.com/spynetS)
 * Undercoverdog (https://github.com/Undercoverdog)
+* Moita
 
 # OpenClick
 [![GitHub license](https://img.shields.io/github/license/SpamixOfficial/Openclick.svg)](https://github.com/SpamixOfficial/Openclick/blob/master/LICENSE)
@@ -24,11 +25,17 @@ There are 2 different editions/versions of this software.
 
 Either you use the "Module" Edition, which consists of the install.py, the main.py and the manager.py file, or you run the "Full Edition". The "Module" Edition is cross-platform, since it works on Linux and Windows!
 
-The "Full" Edition is the 2 files (main.py and manager.py) made into one file that's also installed as a command on your system. The "Full" Edition isn't cross-platform, it does not work on windows. 
+The "Full" Edition is the 2 files (main.py and manager.py) made into one file (cli.py) that's also installed as a command on your system. The "Full" Edition isn't cross-platform, it does not work on windows. 
 
 A fix is coming!
 
 There are guides for both editions.
+
+## Folder structure
+- The **Module Edition** files (`install.py`, `main.py`, `manager.py`, `settings.json`) live inside the **`universal/`** folder.
+- The **Full Edition** file (`cli.py`) lives inside the **`linux/`** folder.
+
+Whenever the guides below say "make sure you're in the right directory", for the Module Edition that means `cd`-ing into `universal/` first.
 
 
 # Intro
@@ -74,7 +81,10 @@ sudo dnf install python3-devel
 ```
 
 # How to install Module Edition
-**Make sure you are in the right directory!**
+**Make sure you `cd` into the `universal/` folder first — all the commands below are run from inside it, not the repo root!**
+```
+cd universal
+```
 
 ## How to install
 **(Wayland users use sudo)**
@@ -100,12 +110,12 @@ Use the command
   ```
   python3 main.py
   ```
-while in the correct folder to run the script!
+while inside the `universal/` folder to run the script!
 Use the command 
   ```
   python3 manager.py --c
   ```
-while in the correct folder to open up the customization menu! (Tip! Use -h instead of --c to get the help menu instead!)
+while inside the `universal/` folder to open up the customization menu! (Tip! Use -h instead of --c to get the help menu instead!)
 If you want to customize the constant click delay, then use the command 
   ```
   python3 main.py -cd [value] 
@@ -116,31 +126,16 @@ The default value is 0,5 seconds!
 # How to install Full Edition
 ## How to install
 
-**Make sure you are in the right directory!**
+**Make sure you are in the repo's root directory (where `install.sh` is) — not inside `universal/` or `linux/`!**
 
 **You will need sudo access for this**
 
 Step 1:
-  Install jq using your package manager.
-
-  For Ubuntu/Debian based distros.
-  ```
-  sudo apt-get install jq
-  ```
-  For Arch based distros:
-  ```
-  sudo pacman -S jq
-  ```
-  For Red-Hat based distros:
-  ```
-  sudo dnf install jq
-  ```
-Step 2:
   Chmod the scripts and run the installer.
   ```
-  chmod +x install.sh && chmod +x uninstall.sh && ./install.sh
+  chmod +x install.sh && ./install.sh
   ```
-Step 3:
+Step 2:
   When you get the message;
   > Installation Success!
   
@@ -166,37 +161,8 @@ If you want to customize the constant click delay, then use the command
   ```
 The default value is 0,5 seconds!
 
-If you want to update manually:
-```
-openclick -u
-```
-If you want to turn off auto updates:
-```
-openclick -u auto=False
-```
-If you want to turn on auto updates:
-```
-openclick -u auto=True
-```
-
-## IMPORTANT
-I would advise you to turn auto updates off if you dont have a stable internet connection.
-
 # Extra info
 If you find any bugs, report them!
 The project is written in python.
-And lastly, if you find something you feel like can be improved, changed or just something you want to add, suggest it in "ideas" (https://github.com/SpamixOfficial/OpenClick/discussions/1)
+And lastly, if you find something you feel like can be improved, changed or just something you want to add, suggest it, and/or pullrequest it!
 
-
-# To-do List!
-- [X] Add customization
-- [X] Add constant mode
-- [X] Partial Add Windows support
-- [X] Add auto updates
-- [X] Add auto updates for all editions
-- [ ] Add Windows support
-- [ ] Create aur package
-- [ ] (Maybe) Create deb package
-- [ ] Something you can suggest in "ideas" (https://github.com/SpamixOfficial/OpenClick/discussions/1)
-
-[![ForTheBadge built-with-swag](http://ForTheBadge.com/images/badges/built-with-swag.svg)](https://GitHub.com/SpamixOfficial/)
