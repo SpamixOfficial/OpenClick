@@ -121,7 +121,10 @@ if True:
 		data = json.load(f)
 		debugmode = (data['debugmode'])
 
-contantClickDelay = args.cd
+if args.cd is not None: # We need to verify if it exists first.
+	contantClickDelay = args.cd
+else:
+	contantClickDelay = constantClickDelay
 ## --------------------------------------------------------------- ##
 # Start of program
 
@@ -226,7 +229,7 @@ def autoClick():
 	while shouldClick:
 		mouse.press(Button.left)
 		mouse.release(Button.left)
-		time.sleep(contantClickDelay) #add delay
+		time.sleep(constantClickDelay) #add delay
 
 # Collect events until released
 with Listener(
